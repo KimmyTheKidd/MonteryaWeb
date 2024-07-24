@@ -13,8 +13,6 @@ fs.readdir(unityBuildDir, (err, files) => {
   }
 
   files.forEach(file => {
-    console.log(file);
-
     // Find the extension that matches the end of the filename
     const matchedExtension = extensions.find(ext => file.endsWith(ext));
     
@@ -31,7 +29,7 @@ fs.readdir(unityBuildDir, (err, files) => {
         if (err) {
           console.error(`Error renaming file ${file}:`, err);
         } else {
-          console.log(`Renamed ${file} to ${newFileName}`);
+          //console.log(`Renamed ${file} to ${newFileName}`);
         }
       });
     }
