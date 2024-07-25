@@ -153,15 +153,39 @@ export default function Game() {
     minHeight: "90vh",
   }}
 >
-  <div className="flex flex-col items-center justify-center h-full w-full">
+  <div className="relative flex flex-col items-center justify-center h-full w-full">
     {!isLoaded && (
-      <p className="text-white text-lg md:text-2xl font-semibold animate-pulse">
-        Loading Application... {Math.round(loadingProgression * 100)}%
-      </p>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="relative flex items-center justify-center mb-4">
+          <img
+            src="/MT_icon.png"
+            alt="Loading Icon"
+            className="w-16 h-16 animate-flip"
+          />
+          <style jsx>{`
+            @keyframes flip {
+              0% { transform: rotateY(0deg); }
+              100% { transform: rotateY(360deg); }
+            }
+            .animate-flip {
+              animation: flip 2s infinite linear;
+            }
+          `}</style>
+        </div>
+        <div className="w-64 h-2 bg-gray-300 rounded">
+          <div
+            className="h-full bg-blue-500 rounded"
+            style={{ width: `${Math.round(loadingProgression * 100)}%` }}
+          />
+        </div>
+        <p className="text-white text-lg md:text-2xl font-semibold mt-4">
+          Loading Application... {Math.round(loadingProgression * 100)}%
+        </p>
+      </div>
     )}
     <div
       ref={gameContainerRef}
-      className="flex items-center justify-center mt-10" // Added margin-top
+      className="flex items-center justify-center mt-10"
       style={{ width: "1280px", height: "720px" }}
     >
       <Unity
@@ -199,6 +223,8 @@ export default function Game() {
     </div>
   </div>
 </section>
+
+
 
 
   );

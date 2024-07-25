@@ -1,19 +1,41 @@
+import { useState, useEffect } from "react";
+import { fetchPatchNotes } from "./patch-server-action/patchNoteService";
 import PatchNote from "./Patches";
 
-const notes = [
-  { title: "Patch 1.0", description: "Initial release with basic features." },
-  { title: "Patch 1.1", description: "Bug fixes and performance improvements." },
-  { title: "Patch 1.3", description: "New levels and challenges added." },
-  { title: "Patch 1.4", description: "New levels and challenges added." },
-  { title: "Patch 1.5", description: "New levels and challenges added." },
-  { title: "Patch 1.6", description: "New levels and challenges added." },
-  { title: "Patch 1.7", description: "New levels and challenges added." },
-  { title: "Patch 1.8", description: "New levels and challenges added." },
-  { title: "Patch 1.9", description: "New levels and challenges added." },
-  // Add more notes as needed
-];
+// Define the type for the patch note
+interface PatchNoteType {
+  title: string;
+  description: string;
+  bugFixes: string[];
+  NewFeatures: string[];
+  improvements: string[];
+}
 
 const PatchNoteList = () => {
+  // Use the defined type for the state
+  const [notes, setNotes] = useState<PatchNoteType[]>([]);
+
+  const getUser = async () => {
+    try {
+      const result = await fetchPatchNotes();
+      // Assuming result is an array of patch notes
+      const patchNotes: PatchNoteType[] = result.map(note => ({
+        title: `Version ${note.version}`,
+        description: `${note.updateType} - ${note.date}`,
+        bugFixes: note.bugFixes,
+        NewFeatures: note.NewFeatures,
+        improvements: note.improvements
+      }));
+      setNotes(patchNotes);
+    } catch (error) {
+      console.error('Error fetching patch notes:', error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div className="grid grid-cols-4 gap-1 max-w-[1800px] rounded-xl bg-transparent p-4 mx-auto items-center">
       {notes.map((note, index) => (

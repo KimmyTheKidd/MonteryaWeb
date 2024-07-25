@@ -53,6 +53,7 @@ const UserSettingCard: React.FC = () => {
     const getUser = async () => {
       try {
         const result = await fetchUser(user.uid);
+        
         if (result == null) {
           setFetchedUser(null);
         } else {
