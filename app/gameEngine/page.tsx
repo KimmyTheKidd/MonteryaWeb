@@ -47,7 +47,8 @@ export default function Game() {
   }, [isLoaded, sendMessage, currentuser, SetGameState]);
 
   useEffect(() => {
-    const handleClickInside = () => {
+    const handleClickInside = (event: MouseEvent) => {
+      event.stopPropagation();
       if (isLoaded && user && currentuser) {
         sendMessage("FirebaseCtrl", "GainFocus");
       }
@@ -125,7 +126,7 @@ export default function Game() {
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center center",
-      minHeight: "100vh",
+      minHeight: "980px",
     }}
   >
     {/* <p className="text-white">Loading Game...</p> */}
@@ -142,37 +143,37 @@ export default function Game() {
 
   return (
     <section
-      id="home"
-      className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center justify-center text-center"
-      style={{
-        backgroundImage: "url('/rabbit_nobg.png')",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center center",
-        minHeight: "100vh",
-      }}
+  id="home"
+  className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center justify-center text-center"
+  style={{
+    backgroundImage: "url('/rabbit_nobg.png')",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    minHeight: "100vh",
+  }}
+>
+  <div className="flex flex-col items-center justify-center h-full w-full">
+    {!isLoaded && (
+      <p className="text-white text-lg md:text-2xl font-semibold animate-pulse">
+        Loading Application... {Math.round(loadingProgression * 100)}%
+      </p>
+    )}
+    <div
+      ref={gameContainerRef}
+      className="flex items-center justify-center"
+      style={{ width: "1280px", height: "720px" }}
     >
-      <div className="flex flex-col items-center justify-center h-full w-full">
-        {!isLoaded && (
-          <p className="text-white">
-            Loading Application... {Math.round(loadingProgression * 100)}%
-          </p>
-        )}
-        <div
-          ref={gameContainerRef}
-          className="flex items-center justify-center"
-          style={{ width: "1280px", height: "720px" }}
-        >
-          <Unity
-            unityProvider={unityProvider}
-            style={{ width: "100%", height: "100%" }}
-            tabIndex={1}
-          />
-        </div>
-        <div className="flex items-center space-x-4">
+      <Unity
+        unityProvider={unityProvider}
+        style={{ width: "100%", height: "100%" }}
+        tabIndex={1}
+      />
+    </div>
+    <div className="flex items-center space-x-4 mt-4">
       <Button
         onClick={handleClickEnterFullscreen}
-        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Enter Fullscreen
       </Button>
@@ -196,8 +197,9 @@ export default function Game() {
         </div>
       </Tooltip>
     </div>
-      </div>
-    </section>
+  </div>
+</section>
+
   );
 }
 
