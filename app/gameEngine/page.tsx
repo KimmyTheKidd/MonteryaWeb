@@ -50,7 +50,7 @@ export default function Game() {
     const handleClickInside = (event: MouseEvent) => {
       event.stopPropagation();
       if (isLoaded && user && currentuser) {
-        sendMessage("FirebaseCtrl", "GainFocus");
+        sendMessage("#ClientService", "GainFocus");
       }
     };
 
@@ -75,7 +75,7 @@ export default function Game() {
         gameContainerRef.current &&
         !gameContainerRef.current.contains(event.target as Node)
       ) {
-        sendMessage("FirebaseCtrl", "LoseFocus");
+        sendMessage("#ClientService", "LoseFocus");
 
         const unityCanvas = document.getElementById(
           "unityCanvas"
