@@ -142,15 +142,15 @@ export default function Game() {
   }
 
   return (
-    <section
+<section
   id="home"
-  className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center justify-center text-center"
+  className="relative z-10 overflow-hidden bg-white sm:pb-[60px] sm:pt-[80px] md:pb-[100px] md:pt-[120px] lg:pb-[120px] lg:pt-[140px] xl:pb-[140px] xl:pt-[160px] 2xl:pb-[85px] 2xl:pt-[85px] bg-cover bg-center flex flex-col items-center justify-center text-center"
   style={{
     backgroundImage: "url('/rabbit_nobg.png')",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
-    minHeight: "100vh",
+    minHeight: "90vh",
   }}
 >
   <div className="flex flex-col items-center justify-center h-full w-full">
@@ -161,7 +161,7 @@ export default function Game() {
     )}
     <div
       ref={gameContainerRef}
-      className="flex items-center justify-center"
+      className="flex items-center justify-center mt-10" // Added margin-top
       style={{ width: "1280px", height: "720px" }}
     >
       <Unity
@@ -199,6 +199,7 @@ export default function Game() {
     </div>
   </div>
 </section>
+
 
   );
 }
