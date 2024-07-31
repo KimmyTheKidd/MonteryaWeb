@@ -8,6 +8,8 @@ import { UserAuth } from "@/config/AuthContext";
 import BugReportButton from "../BugReport/BugReport";
 import UserDropDown from "./userDropDown";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { user, isGameOpen } = UserAuth();
@@ -38,26 +40,26 @@ const Header = () => {
 
   return (
     <header
-      className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-black bg-opacity-60 py-4 lg:py-2 shadow-sticky backdrop-blur-sm transition rounded-xl mt-10`}
+    className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-black bg-opacity-40 py-6 lg:py-4 shadow-sticky backdrop-blur-sm transition rounded-xl mt-10`}
     >
       <div className="container">
         <div className="relative flex items-center justify-between mx-4 xl:mx-0">
           <div className="w-40 px-4 xl:mr-12">
-              <Image
-                onClick={() => handleNavigation("/")}
-                src="/MonteryaNoicon.png"
-                alt="logo"
-                width={140}
-                height={30}
-                className="w-full dark:hidden hover:cursor-pointer"
-              />
-              <Image
-                src="/MonteryaNoicon.png"
-                alt="logo"
-                width={140}
-                height={30}
-                className="hidden w-full dark:block"
-              />
+            <Image
+              onClick={() => handleNavigation("/")}
+              src="/MonteryaNoicon.png"
+              alt="logo"
+              width={140}
+              height={30}
+              className="w-full dark:hidden hover:cursor-pointer"
+            />
+            <Image
+              src="/MonteryaNoicon.png"
+              alt="logo"
+              width={140}
+              height={30}
+              className="hidden w-full dark:block"
+            />
           </div>
           <div className="flex w-full items-center justify-between">
             {/* For the X when miniize */}
@@ -88,7 +90,7 @@ const Header = () => {
               }`}
             >
               <ul className="block lg:flex lg:space-x-4">
-                {menuData.map((menuItem : any , index : any) => (
+                {menuData.map((menuItem: any, index: any) => (
                   <li key={index} className="group relative">
                     {menuItem.path ? (
                       <a
@@ -169,9 +171,10 @@ const Header = () => {
 
               <Link
                 href="/gameEngine"
-                className="hidden ml-4 mr-4 rounded-lg bg-blue-600 px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9 cursor-pointer"
+                className="hidden ml-4 mr-4 rounded-lg bg-blue-600 hover:bg-blue-500 px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:flex md:items-center md:justify-center md:px-9 lg:px-6 xl:px-9 cursor-pointer"
               >
-                Start Playing
+                <span className="mr-2">Start Playing</span>
+                <FontAwesomeIcon icon={faCircleChevronRight} />
               </Link>
             </div>
           </div>

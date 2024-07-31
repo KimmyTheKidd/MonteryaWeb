@@ -19,6 +19,12 @@ const menuData: Menu[] = [
     path: "/roadmap",
     newTab: false,
   },
+  {
+    id: 33,
+    title: "Game Wiki",
+    path: "/GameWiki",
+    newTab: false,
+  }
   // {
   //   id: 3,
   //   title: "Support",

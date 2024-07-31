@@ -24,19 +24,29 @@ const OAuthForm: React.FC<OAuthFormProps> = ({ isFormDisable }) => {
     try {
       const result = await googleSignIn();
       console.log(result);
-      if (!result) {
-        showFailedToast('Error signing in with Google');
+      
+      if (!result.success) {
+        if (result.errorType === 'INVALID_EMAIL_DOMAIN') {
+          showFailedToast('You must use a woxacorp.com email address.');
+        } else {
+          showFailedToast('Error signing in with Google');
+        }
+        router.push("/login");
+        return;
       } else {
         showSuccessToast("Login Successfully");
         router.push("/");
+        return;
       }
-      goToSignUp();
     } catch (error) {
       console.error('Error signing in with Google:', error);
+      showFailedToast('An unexpected error occurred. Please try again.');
     } finally {
       setIsPending(false);
     }
   };
+  
+  
   return (
     <Button
       onClick={handleLoginWithGoogle}

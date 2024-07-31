@@ -57,7 +57,7 @@ export default function SignUpCard() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isFormDisable, setIsFormDisable] = useState(false);
+  const [isFormDisable, setIsFormDisable] = useState(true);
 
   useEffect(() => {
     if (user) {

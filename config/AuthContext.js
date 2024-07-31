@@ -33,20 +33,30 @@ export const AuthContextProvider = ({ children }) => {
       const provider = new GoogleAuthProvider();
       try {
         const data = await signInWithPopup(auth, provider);
-        
+    
         if (!data || data.error) {
           console.error('No user data received or there was an error:', data ? data.error : 'Unknown error');
-          return false;
+          return { success: false, errorType: 'NO_USER_DATA' };
         }
+    
+        // Check if the email domain is correct
+        const email = data.user.email;
+        if (!email.endsWith('@woxacorp.com')) {
+          console.error('You must use a woxacorp.com email address.');
+          await signOut(auth);
+          return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
+        }
+    
         await signupWithOAuth(data.user);
-
-        return true;
-
+    
+        return { success: true };
+    
       } catch (error) {
         console.error('Error during Google sign-in:', error);
-        return false; // Ensure the function returns false if there's an error
+        return { success: false, errorType: 'SIGN_IN_ERROR' }; // Ensure the function returns error type if there's an error
       }
     };
+    
 
 
   const SetGameState = async (param) => {

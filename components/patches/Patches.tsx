@@ -22,17 +22,17 @@ const PatchNote = ({ note, index }: PatchNoteProps) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }} // Stagger the delay
-      className="relative bg-gray-800 shadow-xl p-6 text-white transition-transform transform hover:-translate-y-2 hover:shadow-2xl hover:bg-gray-900"
+      transition={{ duration: 0.5, delay: index * 0.2 }}
+      className="relative bg-[#131D2E] p-4 rounded-lg shadow-lg text-honey-200 transition-transform transform hover:bg-[#182438] hover:shadow-xl hover:-translate-y-1"
     >
       <div className="flex flex-col items-center">
         <FontAwesomeIcon
-          icon={faExclamationCircle} // Use a generic icon for the preview
-          className="text-blue-300 hover:text-white cursor-pointer transition-colors text-3xl mb-4"
-          onClick={onOpen} // Open modal on icon click
+          icon={faExclamationCircle}
+          className="text-3xl mb-2 text-honey-200 cursor-pointer hover:text-honey-100 transition-colors"
+          onClick={onOpen}
         />
         <h4
-          className="text-xl font-bold mb-2 cursor-pointer hover:text-blue-400 transition-colors"
+          className="text-lg font-semibold mb-2 cursor-pointer hover:text-honey-100 transition-colors"
           onClick={onOpen}
         >
           {note.title}
@@ -43,11 +43,11 @@ const PatchNote = ({ note, index }: PatchNoteProps) => {
       </div>
 
       <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
-        <ModalContent>
-          <ModalHeader className="text-xl font-semibold text-white">
+        <ModalContent className="bg-[#131D2E] text-honey-200">
+          <ModalHeader className="text-lg font-semibold text-honey-200">
             {note.title}
           </ModalHeader>
-          <ModalBody className="text-white">
+          <ModalBody className="text-honey-200">
             <p>{note.description}</p>
             {note.bugFixes && note.bugFixes.length > 0 && (
               <div className="mt-4">
