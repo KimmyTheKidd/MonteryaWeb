@@ -41,11 +41,11 @@ export const AuthContextProvider = ({ children }) => {
     
         // Check if the email domain is correct
         const email = data.user.email;
-        if (!email.endsWith('@woxacorp.com')) {
-          console.error('You must use a woxacorp.com email address.');
-          await signOut(auth);
-          return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
-        }
+        // if (!email.endsWith('@woxacorp.com')) {
+        //   console.error('You must use a woxacorp.com email address.');
+        //   await signOut(auth);
+        //   return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
+        // }
     
         await signupWithOAuth(data.user);
     
