@@ -3,14 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { UserAuth } from "@/config/AuthContext";
 import { useRouter , usePathname } from "next/navigation";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { Tutoral_Pages } from "@/types/data";
 
 const unityContextLocation = "Unity-WebGl-Build/Build";
 
 export default function Game() {
   const { user, currentuser, SetGameState } = UserAuth();
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const [page, setPage] = useState(0);
+
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const {
     unityProvider,
@@ -141,6 +145,19 @@ export default function Game() {
     window.location.href = usePathName;
   }
 
+
+  const handleNext = () => {
+    if (page < Tutoral_Pages.length - 1) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  };
+
   return (
 <section
   id="home"
@@ -220,6 +237,47 @@ export default function Game() {
           />
         </div>
       </Tooltip>
+
+      <Button  
+            color="primary" 
+            onPress={onOpen}
+            className="capitalize"
+          >
+            How To Play
+      </Button>
+
+      <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">{Tutoral_Pages[page].title}</ModalHeader>
+            <ModalBody>
+              <p>{Tutoral_Pages[page].content}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose}>
+                Close
+              </Button>
+              {page > 0 && (
+                <Button color="primary" variant="light" onPress={handlePrevious}>
+                  Previous
+                </Button>
+              )}
+              {page < Tutoral_Pages.length - 1 ? (
+                <Button color="primary" onPress={handleNext}>
+                  Next
+                </Button>
+              ) : (
+                <Button color="primary" onPress={onClose}>
+                  Finish
+                </Button>
+              )}
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
+
     </div>
   </div>
 </section>
