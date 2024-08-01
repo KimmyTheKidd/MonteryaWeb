@@ -33,7 +33,7 @@ export const Tutorial_Pages = [
         tooltip: "Ores are crucial for mining minerals. Various tiers offer different ores with special properties."
       },
     ],
-    tooltip: "Learn about different resources available in the game and their uses."
+    tooltip: "There are different tiers of resources in the game. Use appropriate tools for harvesting; otherwise, they might break."
   },
   {
     title: "NPCs",
@@ -42,40 +42,40 @@ export const Tutorial_Pages = [
         name: "Carpenter NPC",
         image: "/Tutorial/Carpenter_NPC.png",
         description: "The carpenter helps with wood-related items.",
-        tooltip: "The Carpenter NPC can help you craft items from wood and provide related services."
+        tooltip: "The Carpenter NPC is at the top of the big tree"
       },
       {
         name: "Clothing NPC",
         image: "/Tutorial/cloting_NPC.png",
         description: "Provides clothing and gear.",
-        tooltip: "Visit the Clothing NPC to buy or upgrade your clothing and gear."
+        tooltip: "The Clothing NPC is on the right side of where you spawn"
       },
       {
         name: "Farmer NPC",
         image: "/Tutorial/Farmer_NPC.png",
         description: "Assists with farming and gathering food.",
-        tooltip: "The Farmer NPC can provide resources and assistance for farming and food gathering."
+        tooltip: "The Farmer NPC is at the bottom of wher you spawn "
       },
       {
         name: "OreSmith NPC",
         image: "/Tutorial/OreSmith_NPC.png",
         description: "Specializes in working with ores.",
-        tooltip: "OreSmith NPC helps with crafting and refining ores into valuable items."
+        tooltip: "OreSmith NPC is at the North-Eeast of wher you spawned"
       },
       {
         name: "StoneSmith NPC",
         image: "/Tutorial/StoneSmith_NPC.png",
         description: "Handles stone-related tasks.",
-        tooltip: "StoneSmith NPC offers services related to stone, including crafting and refining."
+        tooltip: "StoneSmith NPC is at the South-East of wher you spawn "
       },
       {
         name: "Toolsmith NPC",
         image: "/Tutorial/Toolsmith_NPC.png",
         description: "Crafts and repairs tools.",
-        tooltip: "The Toolsmith NPC is crucial for tool crafting and repairs."
+        tooltip: "The Toolsmith NPC is at the bottom of wher you spawn "
       },
     ],
-    tooltip: "There are different tiers of resources in the game. Use appropriate tools for harvesting; otherwise, they might break."
+    tooltip: "Many NPCs are scattered around the King Forge City. Try walking around and exploring; maybe you'll find one."
   },
   {
     title: "Goal",
