@@ -5,8 +5,8 @@ import { UserAuth } from "@/config/AuthContext";
 import { useRouter , usePathname } from "next/navigation";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { Tutoral_Pages } from "@/types/data";
+import { faInfoCircle, faQuestionCircle, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { Tutorial_Pages } from "@/types/data";
 
 const unityContextLocation = "Unity-WebGl-Build/Build";
 
@@ -14,6 +14,7 @@ export default function Game() {
   const { user, currentuser, SetGameState } = UserAuth();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [page, setPage] = useState(0);
+  const currentPage = Tutorial_Pages[page];
 
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const {
@@ -147,7 +148,7 @@ export default function Game() {
 
 
   const handleNext = () => {
-    if (page < Tutoral_Pages.length - 1) {
+    if (page < Tutorial_Pages.length - 1) {
       setPage(page + 1);
     }
   };
@@ -222,20 +223,22 @@ export default function Game() {
       <Tooltip
         content={
           <>
-            Server Status: If the server status is red, please reload the page
-            or click here.
-          </>
+  <span className="font-bold text-red-500">Server Status:</span> If the server status is <span className="font-bold text-red-500">red</span>, please reload the page or click here.
+</>
         }
-        color="danger" // Use "error" for warning style
+        color="success" // Use "error" for warning style
         placement="top"
       >
-        <div className="flex items-center" onClick={reloadPage}>
-          <FontAwesomeIcon
-            icon={faInfoCircle}
-            className="text-red-600 cursor-pointer"
-            size="lg" // Adjust size as needed
-          />
-        </div>
+          <div
+    className="flex items-center justify-center p-1 bg-white rounded-full shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+    onClick={reloadPage}
+  >
+    <FontAwesomeIcon
+      icon={faRotateRight}
+      className="text-green-500"
+      size="lg" // Adjust size as needed
+    />
+  </div>
       </Tooltip>
 
       <Button  
@@ -246,35 +249,84 @@ export default function Game() {
             How To Play
       </Button>
 
-      <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">{Tutoral_Pages[page].title}</ModalHeader>
-            <ModalBody>
-              <p>{Tutoral_Pages[page].content}</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-              {page > 0 && (
-                <Button color="primary" variant="light" onPress={handlePrevious}>
-                  Previous
-                </Button>
-              )}
-              {page < Tutoral_Pages.length - 1 ? (
-                <Button color="primary" onPress={handleNext}>
-                  Next
-                </Button>
-              ) : (
-                <Button color="primary" onPress={onClose}>
-                  Finish
-                </Button>
-              )}
-            </ModalFooter>
-          </>
-        )}
+      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} className="max-w-3xl mx-auto p-4">
+      <ModalContent className="rounded-lg shadow-lg mx-auto max-w-4xl">
+        <ModalHeader className="text-center text-lg font-bold flex items-center justify-center gap-2">
+          {currentPage.title}
+          <Tooltip
+            content={
+              <div className="p-2 text-xs text-white bg-black rounded">
+                {currentPage.tooltip || 'Additional information about this page.'}
+              </div>
+            }
+            placement="top"
+          >
+            <FontAwesomeIcon
+              icon={faQuestionCircle}
+              className="text-blue-500 cursor-pointer hover:text-blue-700"
+              size="lg"
+            />
+          </Tooltip>
+        </ModalHeader>
+        <ModalBody className="p-4">
+          {Array.isArray(currentPage.content) ? (
+            <div className="flex flex-wrap justify-center gap-4">
+              {currentPage.content.map((item, index) => (
+                <div key={index} className="relative flex-shrink-0 w-1/3 sm:w-1/4 lg:w-1/5 p-2">
+                  <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-md">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="text-center mt-2">
+                    <h3 className="text-sm font-semibold">{item.name}</h3>
+                    <p className="text-xs">{item.description}</p>
+                    {item.tooltip && (
+                      <Tooltip
+                        content={
+                          <div className="p-2 text-xs text-white bg-black rounded">
+                            {item.tooltip}
+                          </div>
+                        }
+                        // color="success"
+                        placement="top"
+                      >
+                        <FontAwesomeIcon
+                          icon={faQuestionCircle}
+                          className="text-blue-500 cursor-pointer hover:text-blue-700 ml-1"
+                          size="sm"
+                        />
+                      </Tooltip>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-center">{currentPage.content}</p>
+          )}
+        </ModalBody>
+        <ModalFooter className="flex justify-between">
+          <Button color="danger" variant="light" onPress={onClose}>
+            Close
+          </Button>
+          {page > 0 && (
+            <Button color="primary" variant="light" onPress={handlePrevious}>
+              Previous
+            </Button>
+          )}
+          {page < Tutorial_Pages.length - 1 ? (
+            <Button color="primary" onPress={handleNext}>
+              Next
+            </Button>
+          ) : (
+            <Button color="primary" onPress={onClose}>
+              Finish
+            </Button>
+          )}
+        </ModalFooter>
       </ModalContent>
     </Modal>
 

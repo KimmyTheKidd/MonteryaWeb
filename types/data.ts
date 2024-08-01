@@ -10,21 +10,79 @@ export const animals = [
   {key: "other", label: "Other"},
 ];
 
-export const Tutoral_Pages = [
+export const Tutorial_Pages = [
   {
-    title: "Step 1: Get Free Start Pack",
-    content: "Get a free start pack from the welcome NPC. This will include some essential items to get you started.",
+    title: "Resources",
+    content: [
+      {
+        name: "Tree",
+        image: "/Tutorial/tree_tier1.png",
+        description: "Trees provide wood for crafting. There are several tiers of resources available.",
+        tooltip: "Trees are essential for gathering wood. Higher tiers provide better quality wood."
+      },
+      {
+        name: "Rock",
+        image: "/Tutorial/rock_tier1.png",
+        description: "Rocks are used to gather stones. Explore higher tiers for better resources.",
+        tooltip: "Rocks are basic for gathering stones. Look for higher tiers to get different stone types."
+      },
+      {
+        name: "Ore",
+        image: "/Tutorial/ore_tier1.png",
+        description: "Ores can be mined for minerals. Different tiers offer different types of ores.",
+        tooltip: "Ores are crucial for mining minerals. Various tiers offer different ores with special properties."
+      },
+    ],
+    tooltip: "Learn about different resources available in the game and their uses."
   },
   {
-    title: "Step 2: Gather Resources",
-    content: "Gather wood, stones, and minerals from the environment. These resources are essential for crafting and building.",
+    title: "NPCs",
+    content: [
+      {
+        name: "Carpenter NPC",
+        image: "/Tutorial/Carpenter_NPC.png",
+        description: "The carpenter helps with wood-related items.",
+        tooltip: "The Carpenter NPC can help you craft items from wood and provide related services."
+      },
+      {
+        name: "Clothing NPC",
+        image: "/Tutorial/cloting_NPC.png",
+        description: "Provides clothing and gear.",
+        tooltip: "Visit the Clothing NPC to buy or upgrade your clothing and gear."
+      },
+      {
+        name: "Farmer NPC",
+        image: "/Tutorial/Farmer_NPC.png",
+        description: "Assists with farming and gathering food.",
+        tooltip: "The Farmer NPC can provide resources and assistance for farming and food gathering."
+      },
+      {
+        name: "OreSmith NPC",
+        image: "/Tutorial/OreSmith_NPC.png",
+        description: "Specializes in working with ores.",
+        tooltip: "OreSmith NPC helps with crafting and refining ores into valuable items."
+      },
+      {
+        name: "StoneSmith NPC",
+        image: "/Tutorial/StoneSmith_NPC.png",
+        description: "Handles stone-related tasks.",
+        tooltip: "StoneSmith NPC offers services related to stone, including crafting and refining."
+      },
+      {
+        name: "Toolsmith NPC",
+        image: "/Tutorial/Toolsmith_NPC.png",
+        description: "Crafts and repairs tools.",
+        tooltip: "The Toolsmith NPC is crucial for tool crafting and repairs."
+      },
+    ],
+    tooltip: "There are different tiers of resources in the game. Use appropriate tools for harvesting; otherwise, they might break."
   },
   {
-    title: "Step 3: Crafting Time",
-    content: "Use the resources you gathered to craft tools, weapons, and other items. Crafting is a key part of the game.",
-  },
-  {
-    title: "Step 4: Catch Fish or Go to Farm",
-    content: "You can either catch some fish or go to the farm to gather food. Managing your food supply is important for survival.",
+    title: "Goal",
+    content: "Your main objective is to gather resources, craft items, and interact with NPCs to progress in the game.",
+    tooltip: "This is the overarching goal of your adventure. Keep this in mind as you explore and interact with the game world."
   },
 ];
+
+
+
