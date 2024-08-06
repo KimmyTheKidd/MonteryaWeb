@@ -23,7 +23,12 @@
         <div id="unity-build-title">monterya</div>
       </div>
     </div>
+
+    
+
+
     <script>
+
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
@@ -37,6 +42,7 @@
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
       // user.
+
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -149,6 +155,6 @@
       console.log("Firebase initialized:",  firebase); // Check if Firebase is properly initialized
 
     </script>
-
+    <script src="/performanceMonitor.js"></script>
   </body>
 </html>
