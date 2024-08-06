@@ -112,7 +112,7 @@ export default function Game() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-
+  
   async function handleClickBack() {
     await unload();
     Router.push("/");

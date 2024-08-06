@@ -8,8 +8,7 @@
 		"dev": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
-		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
-		"prod:start": "pm2-runtime app.js"
+		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -47,6 +46,7 @@
 		"react-hot-toast": "^2.4.1",
 		"react-icons": "^5.2.1",
 		"react-unity-webgl": "^9.5.2",
+		"socket.io-client": "^4.7.5",
 		"uuidv4": "^6.2.13",
 		"zod": "^3.23.8"
 	},
