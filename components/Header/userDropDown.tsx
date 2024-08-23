@@ -12,7 +12,7 @@ import { showSuccessToast } from "../toast/CustomToast";
 import { useRouter } from "next/navigation";
 
 export default function UserDropDown() {
-  const { user, logOut, currentuser , isGameOpen} = UserAuth();
+  const { user, logOut, currentuser, isGameOpen } = UserAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,8 +33,8 @@ export default function UserDropDown() {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-  
-  const handleNavigation = async (path: string) =>{
+
+  const handleNavigation = async (path: string) => {
     if (isGameOpen) {
       window.location.href = path;
     } else {
@@ -53,7 +53,9 @@ export default function UserDropDown() {
               src: user.photoURL ? user.photoURL : null,
             }}
             className="transition-transform"
-            name={currentuser.username ? currentuser.username : currentuser.email}
+            name={
+              currentuser.username ? currentuser.username : currentuser.email
+            }
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
@@ -61,7 +63,12 @@ export default function UserDropDown() {
             <p className="font-bold">Signed in as</p>
             <p className="font-bold">{user.email}</p>
           </DropdownItem>
-          <DropdownItem key="settings" onClick={() => handleNavigation("/userSetting")}>My Settings</DropdownItem>
+          <DropdownItem
+            key="settings"
+            onClick={() => handleNavigation("/userSetting")}
+          >
+            My Settings
+          </DropdownItem>
           <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={TriggerLogout}>
             Log Out

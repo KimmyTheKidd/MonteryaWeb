@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { db } from "@/config/firebase";
 import { sendEmailVerification } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -57,8 +57,8 @@ export async function setUserName(uid: any, UserName: any) {
   }
 }
 
-export async function EmailVerification(user:any) {
-  sendEmailVerification(user).then(()=>{
+export async function EmailVerification(user: any) {
+  sendEmailVerification(user).then(() => {
     console.log("Email Varification Send!");
-  })
+  });
 }

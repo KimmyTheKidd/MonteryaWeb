@@ -214,7 +214,7 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
   );
 };
 
-export const EyeFilledIcon = (props : any) => (
+export const EyeFilledIcon = (props: any) => (
   <svg
     aria-hidden="true"
     fill="none"

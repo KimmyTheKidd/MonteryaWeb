@@ -25,7 +25,6 @@ import { SendBugReport } from "./bug-server-action/ReportHandler";
 import { UserAuth } from "@/config/AuthContext";
 
 const FormSchema = z.object({
-  
   bugType: z.string().nonempty({ message: "Bug Type is required" }),
   bugName: z.string().nonempty({ message: "Bug Name is required" }),
   Description: z.string().nonempty({ message: "Bug Details are required" }),
@@ -33,7 +32,7 @@ const FormSchema = z.object({
 });
 
 const BugReportButton = () => {
-  const { user  , currentuser} = UserAuth();
+  const { user, currentuser } = UserAuth();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -53,19 +52,17 @@ const BugReportButton = () => {
     },
   });
 
-
-
   async function onSubmit(data: any) {
     data.userId = user.uid;
     data.bugImage = selectedFile;
     data.submitId = currentuser.userId;
-  
+
     try {
       const result = await SendBugReport(data);
       const { status } = JSON.parse(result) as { status: number };
-      if(status === 429){
+      if (status === 429) {
         showFailedToast("Please wait before submitting another bug report");
-        return
+        return;
       }
       if (status !== 200) {
         showFailedToast("Bug Report Failed to Send");
@@ -81,8 +78,6 @@ const BugReportButton = () => {
       handleClose();
     }
   }
-  
-  
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -109,13 +104,23 @@ const BugReportButton = () => {
           </div>
         }
       >
-        <button onClick={onOpen} className="text-lg text-red-600 focus:outline-none">
+        <button
+          onClick={onOpen}
+          className="text-lg text-red-600 focus:outline-none"
+        >
           <FontAwesomeIcon icon={faBug} />
         </button>
       </Tooltip>
 
-      <Modal isOpen={isOpen} onClose={() => { onClose(); handleClose(); }} placement="center">
-      <ModalContent>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          handleClose();
+        }}
+        placement="center"
+      >
+        <ModalContent>
           <ModalHeader className="text-lg font-bold">Bug Report</ModalHeader>
           <ModalBody>
             <Select
@@ -123,8 +128,7 @@ const BugReportButton = () => {
               label="Bug Type"
               placeholder="Select a bug type"
               className={"max-w-md mb-4"}
-              color={errors.bugType ? "danger":"default"}
-
+              color={errors.bugType ? "danger" : "default"}
             >
               {animals.map((animal) => (
                 <SelectItem key={animal.key}>{animal.label}</SelectItem>
@@ -137,8 +141,7 @@ const BugReportButton = () => {
               label="Bug Title"
               placeholder="Enter Bug Title"
               className={"max-w-md mb-"}
-              color={errors.bugName ? "danger":"default"}
-
+              color={errors.bugName ? "danger" : "default"}
             />
 
             <Textarea
@@ -146,7 +149,7 @@ const BugReportButton = () => {
               label="Description"
               placeholder="Enter bug description"
               className={"max-w-md mb-4"}
-              color={errors.Description ? "danger":"default"}
+              color={errors.Description ? "danger" : "default"}
             />
 
             <FileUpload

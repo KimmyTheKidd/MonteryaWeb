@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-require('dotenv').config(); // Load environment variables from .env file
+require("dotenv").config(); // Load environment variables from .env file
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth } from "@firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -14,11 +14,8 @@ const firebaseConfig = {
   // storageBucket: "monterya-firestore.appspot.com",
   messagingSenderId: "817830792193",
   appId: "1:817830792193:web:aa7ad8beb876f4b9b3c400",
-  measurementId: "G-XWYLZ68WVP"
-  
+  measurementId: "G-XWYLZ68WVP",
 };
-
-
 
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
@@ -28,4 +25,4 @@ const auth = getAuth();
 const db = getFirestore();
 const storage = getStorage(app, "gs://monterya-firestore.appspot.com");
 // Get FIrebase Storage
-export { app, auth, db , storage};
+export { app, auth, db, storage };

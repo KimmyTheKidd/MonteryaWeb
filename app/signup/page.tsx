@@ -1,5 +1,5 @@
-import SignUpCard from '@/components/authentication/SignupCard';
-import { motion } from 'framer-motion';
+import SignUpCard from "@/components/authentication/SignupCard";
+import { motion } from "framer-motion";
 
 export default function SignUpPage() {
   return (
@@ -15,8 +15,7 @@ export default function SignUpPage() {
           height: "980px", // Set a specific height if needed
         }}
       >
-
-          <SignUpCard />
+        <SignUpCard />
       </section>
     </>
   );

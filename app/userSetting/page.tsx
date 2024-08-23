@@ -1,5 +1,5 @@
-'use client'
-import { motion } from 'framer-motion';
+"use client";
+import { motion } from "framer-motion";
 import UserSettingCard from "@/components/userSetting/userSettingCard";
 
 const containerVariants = {
@@ -28,7 +28,6 @@ export default function UserSetting() {
           height: "980px", // Set a specific height if needed
         }}
       >
-
         <motion.div
           initial="hidden"
           animate="visible"
@@ -41,7 +40,7 @@ export default function UserSetting() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            User Setting 
+            User Setting
           </motion.h1>
         </motion.div>
 

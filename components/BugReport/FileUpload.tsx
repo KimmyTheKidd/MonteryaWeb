@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@nextui-org/button";
@@ -77,71 +77,70 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, onReset }) => {
 
   return (
     <div
-  style={{
-    border: `2px dashed ${dragging ? "blue" : "gray"}`,
-    padding: "1rem",
-    borderRadius: "8px",
-    textAlign: "center",
-    minHeight: "100px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  }}
-  onDragEnter={handleDragEnter}
-  onDragOver={handleDragEnter}
-  onDragLeave={handleDragLeave}
-  onDrop={handleDrop}
-  onPaste={handlePaste}
->
-  <input
-    type="file"
-    ref={fileInputRef}
-    style={{ display: "none" }}
-    onChange={handleFileSelect}
-  />
-  <div>
-    {selectedImage ? (
-      <>
-        <img
-          src={selectedImage}
-          alt="Uploaded Preview"
-          style={{
-            display: "block",
-            margin: "0 auto",
-            maxWidth: "100%",
-            maxHeight: "200px",
-            marginBottom: "1rem",
-            textAlign: "center",
-          }}
-        />
+      style={{
+        border: `2px dashed ${dragging ? "blue" : "gray"}`,
+        padding: "1rem",
+        borderRadius: "8px",
+        textAlign: "center",
+        minHeight: "100px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onPaste={handlePaste}
+    >
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileSelect}
+      />
+      <div>
+        {selectedImage ? (
+          <>
+            <img
+              src={selectedImage}
+              alt="Uploaded Preview"
+              style={{
+                display: "block",
+                margin: "0 auto",
+                maxWidth: "100%",
+                maxHeight: "200px",
+                marginBottom: "1rem",
+                textAlign: "center",
+              }}
+            />
 
-        <button
-          onClick={resetFileUpload}
-          style={{ marginBottom: "1rem" }}
-          color="error"
-        >
-          Clear Image
-        </button>
-      </>
-    ) : (
-      <Button
-        onClick={() => fileInputRef.current?.click()}
-        color="primary"
-        style={{ marginBottom: "2rem" }}
-      >
-        <FontAwesomeIcon icon={faFileArrowUp} />
-        Select File
-      </Button>
-    )}
-    <p color="gray">
-      {selectedImage
-        ? "Drag and drop or paste another image to replace"
-        : "Drag and drop your file here, or click to select a file or paste an image."}
-    </p>
-  </div>
-</div>
-
+            <button
+              onClick={resetFileUpload}
+              style={{ marginBottom: "1rem" }}
+              color="error"
+            >
+              Clear Image
+            </button>
+          </>
+        ) : (
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            color="primary"
+            style={{ marginBottom: "2rem" }}
+          >
+            <FontAwesomeIcon icon={faFileArrowUp} />
+            Select File
+          </Button>
+        )}
+        <p color="gray">
+          {selectedImage
+            ? "Drag and drop or paste another image to replace"
+            : "Drag and drop your file here, or click to select a file or paste an image."}
+        </p>
+      </div>
+    </div>
   );
 };
 

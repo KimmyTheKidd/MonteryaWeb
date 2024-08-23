@@ -2,17 +2,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { UserAuth } from "@/config/AuthContext";
-import { useRouter , usePathname } from "next/navigation";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure } from "@nextui-org/react";
+import { useRouter, usePathname } from "next/navigation";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faQuestionCircle, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faInfoCircle,
+  faQuestionCircle,
+  faRotateRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { Tutorial_Pages } from "@/types/data";
 
 const unityContextLocation = "Unity-WebGl-Build/Build";
 
 export default function Game() {
   const { user, currentuser, SetGameState } = UserAuth();
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [page, setPage] = useState(0);
   const currentPage = Tutorial_Pages[page];
 
@@ -83,7 +96,7 @@ export default function Game() {
         sendMessage("#ClientService", "LoseFocus");
 
         const unityCanvas = document.getElementById(
-          "unityCanvas"
+          "unityCanvas",
         ) as HTMLCanvasElement;
         if (unityCanvas) {
           unityCanvas.blur();
@@ -112,7 +125,7 @@ export default function Game() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-  
+
   async function handleClickBack() {
     await unload();
     Router.push("/");
@@ -123,29 +136,30 @@ export default function Game() {
   }
 
   if (!user || !currentuser) {
-    return <section
-    id="home"
-    className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center justify-center text-center"
-    style={{
-      backgroundImage: "url('/kingforge.png')",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center center",
-      minHeight: "980px",
-    }}
-  >
-    {/* <p className="text-white">Loading Game...</p> */}
-  </section>
+    return (
+      <section
+        id="home"
+        className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center justify-center text-center"
+        style={{
+          backgroundImage: "url('/kingforge.png')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          minHeight: "980px",
+        }}
+      >
+        {/* <p className="text-white">Loading Game...</p> */}
+      </section>
+    );
   }
 
   if (isLoading) {
-    return <p className="text-white">Loading Game...</p>
+    return <p className="text-white">Loading Game...</p>;
   }
 
-  const reloadPage = ()=>{
+  const reloadPage = () => {
     window.location.href = usePathName;
-  }
-
+  };
 
   const handleNext = () => {
     if (page < Tutorial_Pages.length - 1) {
@@ -160,185 +174,194 @@ export default function Game() {
   };
 
   return (
-<section
-  id="home"
-  className="relative z-10 overflow-hidden bg-white sm:pb-[60px] sm:pt-[80px] md:pb-[100px] md:pt-[120px] lg:pb-[120px] lg:pt-[140px] xl:pb-[140px] xl:pt-[160px] 2xl:pb-[85px] 2xl:pt-[85px] bg-cover bg-center flex flex-col items-center justify-center text-center"
-  style={{
-    backgroundImage: "url('/rabbit_nobg.png')",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-    minHeight: "90vh",
-  }}
->
-  <div className="relative flex flex-col items-center justify-center h-full w-full">
-    {!isLoaded && (
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="relative flex items-center justify-center mb-4">
-          <img
-            src="/MT_icon.png"
-            alt="Loading Icon"
-            className="w-16 h-16 animate-flip"
-          />
-          <style jsx>{`
-            @keyframes flip {
-              0% { transform: rotateY(0deg); }
-              100% { transform: rotateY(360deg); }
-            }
-            .animate-flip {
-              animation: flip 2s infinite linear;
-            }
-          `}</style>
-        </div>
-        <div className="w-64 h-2 bg-gray-300 rounded">
-          <div
-            className="h-full bg-blue-500 rounded"
-            style={{ width: `${Math.round(loadingProgression * 100)}%` }}
-          />
-        </div>
-        <p className="text-white text-lg md:text-2xl font-semibold mt-4">
-          Loading Application... {Math.round(loadingProgression * 100)}%
-        </p>
-      </div>
-    )}
-    <div
-      ref={gameContainerRef}
-      className="flex items-center justify-center mt-10"
-      style={{ width: "1280px", height: "720px" }}
+    <section
+      id="home"
+      className="relative z-10 overflow-hidden bg-white sm:pb-[60px] sm:pt-[80px] md:pb-[100px] md:pt-[120px] lg:pb-[120px] lg:pt-[140px] xl:pb-[140px] xl:pt-[160px] 2xl:pb-[85px] 2xl:pt-[85px] bg-cover bg-center flex flex-col items-center justify-center text-center"
+      style={{
+        backgroundImage: "url('/rabbit_nobg.png')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+        minHeight: "90vh",
+      }}
     >
-      <Unity
-        unityProvider={unityProvider}
-        style={{ width: "100%", height: "100%" }}
-        tabIndex={1}
-      />
-    </div>
-    <div className="flex items-center space-x-4 mt-4">
-      <Button
-        onClick={handleClickEnterFullscreen}
-        className="capitalize"
-        color="primary" 
-
+      <div className="relative flex flex-col items-center justify-center h-full w-full">
+        {!isLoaded && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="relative flex items-center justify-center mb-4">
+              <img
+                src="/MT_icon.png"
+                alt="Loading Icon"
+                className="w-16 h-16 animate-flip"
+              />
+              <style jsx>{`
+                @keyframes flip {
+                  0% {
+                    transform: rotateY(0deg);
+                  }
+                  100% {
+                    transform: rotateY(360deg);
+                  }
+                }
+                .animate-flip {
+                  animation: flip 2s infinite linear;
+                }
+              `}</style>
+            </div>
+            <div className="w-64 h-2 bg-gray-300 rounded">
+              <div
+                className="h-full bg-blue-500 rounded"
+                style={{ width: `${Math.round(loadingProgression * 100)}%` }}
+              />
+            </div>
+            <p className="text-white text-lg md:text-2xl font-semibold mt-4">
+              Loading Application... {Math.round(loadingProgression * 100)}%
+            </p>
+          </div>
+        )}
+        <div
+          ref={gameContainerRef}
+          className="flex items-center justify-center mt-10"
+          style={{ width: "1280px", height: "720px" }}
         >
-        Fullscreen
-      </Button>
-
-      <Tooltip
-        content={
-          <>
-  <span className="font-bold text-red-500">Server Status:</span> If the server status is <span className="font-bold text-red-500">red</span>, please reload the page or click here.
-</>
-        }
-        color="success" // Use "error" for warning style
-        placement="top"
-      >
-          <div
-    className="flex items-center justify-center p-1 bg-white rounded-full shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-    onClick={reloadPage}
-  >
-    <FontAwesomeIcon
-      icon={faRotateRight}
-      className="text-green-500"
-      size="lg" // Adjust size as needed
-    />
-  </div>
-      </Tooltip>
-
-      <Button  
-            color="primary" 
-            onPress={onOpen}
+          <Unity
+            unityProvider={unityProvider}
+            style={{ width: "100%", height: "100%" }}
+            tabIndex={1}
+          />
+        </div>
+        <div className="flex items-center space-x-4 mt-4">
+          <Button
+            onClick={handleClickEnterFullscreen}
             className="capitalize"
+            color="primary"
           >
-            How To Play
-      </Button>
+            Fullscreen
+          </Button>
 
-      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} className="max-w-3xl mx-auto p-4">
-      <ModalContent className="rounded-lg shadow-lg mx-auto max-w-4xl">
-        <ModalHeader className="text-center text-lg font-bold flex items-center justify-center gap-2">
-          {currentPage.title}
           <Tooltip
             content={
-              <div className="p-2 text-xs text-white bg-black rounded">
-                {currentPage.tooltip || 'Additional information about this page.'}
-              </div>
+              <>
+                <span className="font-bold text-red-500">Server Status:</span>{" "}
+                If the server status is{" "}
+                <span className="font-bold text-red-500">red</span>, please
+                reload the page or click here.
+              </>
             }
+            color="success" // Use "error" for warning style
             placement="top"
           >
-            <FontAwesomeIcon
-              icon={faQuestionCircle}
-              className="text-blue-500 cursor-pointer hover:text-blue-700"
-              size="lg"
-            />
-          </Tooltip>
-        </ModalHeader>
-        <ModalBody className="p-4">
-          {Array.isArray(currentPage.content) ? (
-            <div className="flex flex-wrap justify-center gap-4">
-              {currentPage.content.map((item, index) => (
-                <div key={index} className="relative flex-shrink-0 w-1/3 sm:w-1/4 lg:w-1/5 p-2">
-                  <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-md">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="text-center mt-2">
-                    <h3 className="text-sm font-semibold">{item.name}</h3>
-                    <p className="text-xs">{item.description}</p>
-                    {item.tooltip && (
-                      <Tooltip
-                        content={
-                          <div className="p-2 text-xs text-white bg-black rounded">
-                            {item.tooltip}
-                          </div>
-                        }
-                        // color="success"
-                        placement="top"
-                      >
-                        <FontAwesomeIcon
-                          icon={faQuestionCircle}
-                          className="text-blue-500 cursor-pointer hover:text-blue-700 ml-1"
-                          size="sm"
-                        />
-                      </Tooltip>
-                    )}
-                  </div>
-                </div>
-              ))}
+            <div
+              className="flex items-center justify-center p-1 bg-white rounded-full shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              onClick={reloadPage}
+            >
+              <FontAwesomeIcon
+                icon={faRotateRight}
+                className="text-green-500"
+                size="lg" // Adjust size as needed
+              />
             </div>
-          ) : (
-            <p className="text-sm text-center">{currentPage.content}</p>
-          )}
-        </ModalBody>
-        <ModalFooter className="flex justify-between">
-          <Button color="danger" variant="light" onPress={onClose}>
-            Close
+          </Tooltip>
+
+          <Button color="primary" onPress={onOpen} className="capitalize">
+            How To Play
           </Button>
-          {page > 0 && (
-            <Button color="primary" variant="light" onPress={handlePrevious}>
-              Previous
-            </Button>
-          )}
-          {page < Tutorial_Pages.length - 1 ? (
-            <Button color="primary" onPress={handleNext}>
-              Next
-            </Button>
-          ) : (
-            <Button color="primary" onPress={onClose}>
-              Finish
-            </Button>
-          )}
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
 
-    </div>
-  </div>
-</section>
-
-
-
-
+          <Modal
+            backdrop="blur"
+            isOpen={isOpen}
+            onClose={onClose}
+            className="max-w-3xl mx-auto p-4"
+          >
+            <ModalContent className="rounded-lg shadow-lg mx-auto max-w-4xl">
+              <ModalHeader className="text-center text-lg font-bold flex items-center justify-center gap-2">
+                {currentPage.title}
+                <Tooltip
+                  content={
+                    <div className="p-2 text-xs text-white bg-black rounded">
+                      {currentPage.tooltip ||
+                        "Additional information about this page."}
+                    </div>
+                  }
+                  placement="top"
+                >
+                  <FontAwesomeIcon
+                    icon={faQuestionCircle}
+                    className="text-blue-500 cursor-pointer hover:text-blue-700"
+                    size="lg"
+                  />
+                </Tooltip>
+              </ModalHeader>
+              <ModalBody className="p-4">
+                {Array.isArray(currentPage.content) ? (
+                  <div className="flex flex-wrap justify-center gap-4">
+                    {currentPage.content.map((item, index) => (
+                      <div
+                        key={index}
+                        className="relative flex-shrink-0 w-1/3 sm:w-1/4 lg:w-1/5 p-2"
+                      >
+                        <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-md">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-center mt-2">
+                          <h3 className="text-sm font-semibold">{item.name}</h3>
+                          <p className="text-xs">{item.description}</p>
+                          {item.tooltip && (
+                            <Tooltip
+                              content={
+                                <div className="p-2 text-xs text-white bg-black rounded">
+                                  {item.tooltip}
+                                </div>
+                              }
+                              // color="success"
+                              placement="top"
+                            >
+                              <FontAwesomeIcon
+                                icon={faQuestionCircle}
+                                className="text-blue-500 cursor-pointer hover:text-blue-700 ml-1"
+                                size="sm"
+                              />
+                            </Tooltip>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-center">{currentPage.content}</p>
+                )}
+              </ModalBody>
+              <ModalFooter className="flex justify-between">
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                {page > 0 && (
+                  <Button
+                    color="primary"
+                    variant="light"
+                    onPress={handlePrevious}
+                  >
+                    Previous
+                  </Button>
+                )}
+                {page < Tutorial_Pages.length - 1 ? (
+                  <Button color="primary" onPress={handleNext}>
+                    Next
+                  </Button>
+                ) : (
+                  <Button color="primary" onPress={onClose}>
+                    Finish
+                  </Button>
+                )}
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </div>
+      </div>
+    </section>
   );
 }
-

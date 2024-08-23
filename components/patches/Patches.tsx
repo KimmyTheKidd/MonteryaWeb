@@ -1,7 +1,19 @@
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug, faPlusCircle, faTools, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
+import {
+  faBug,
+  faPlusCircle,
+  faTools,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 
 interface PatchNoteProps {
@@ -62,7 +74,10 @@ const PatchNote = ({ note, index }: PatchNoteProps) => {
             )}
             {note.NewFeatures && note.NewFeatures.length > 0 && (
               <div className="mt-4">
-                <FontAwesomeIcon icon={faPlusCircle} className="text-green-500 mr-2" />
+                <FontAwesomeIcon
+                  icon={faPlusCircle}
+                  className="text-green-500 mr-2"
+                />
                 <span className="font-bold">New Features:</span>
                 <ul className="list-disc list-inside">
                   {note.NewFeatures.map((feature, idx) => (
@@ -73,7 +88,10 @@ const PatchNote = ({ note, index }: PatchNoteProps) => {
             )}
             {note.improvements && note.improvements.length > 0 && (
               <div className="mt-4">
-                <FontAwesomeIcon icon={faTools} className="text-yellow-500 mr-2" />
+                <FontAwesomeIcon
+                  icon={faTools}
+                  className="text-yellow-500 mr-2"
+                />
                 <span className="font-bold">Improvements:</span>
                 <ul className="list-disc list-inside">
                   {note.improvements.map((improvement, idx) => (

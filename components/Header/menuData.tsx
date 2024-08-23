@@ -24,7 +24,7 @@ const menuData: Menu[] = [
     title: "Game Wiki",
     path: "/GameWiki",
     newTab: false,
-  }
+  },
   // {
   //   id: 3,
   //   title: "Support",

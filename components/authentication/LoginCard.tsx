@@ -43,7 +43,7 @@ const FormSchema = z.object({
   password: z.string().min(6, { message: "Password is too short" }),
 });
 
-export default function LoginCard(props : any) {
+export default function LoginCard(props: any) {
   const { user } = UserAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +52,7 @@ export default function LoginCard(props : any) {
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.push("/");
     }
   }, [user, router]);
 
@@ -77,10 +77,10 @@ export default function LoginCard(props : any) {
         showFailedToast(error);
       } else {
         showSuccessToast("Login Successfully");
-        router.push('/');
+        router.push("/");
       }
     } catch (error) {
-      showFailedToast('An error occurred');
+      showFailedToast("An error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -109,7 +109,7 @@ export default function LoginCard(props : any) {
         </CardHeader>
         <Divider />
         <CardBody className="flex flex-col px-10 py-8">
-          <form onSubmit={handleSubmit(handleLogin)} >
+          <form onSubmit={handleSubmit(handleLogin)}>
             <motion.div variants={itemVariants} className="mb-4">
               <Input
                 type="email"
@@ -171,11 +171,11 @@ export default function LoginCard(props : any) {
             {/* Styled login button */}
             <Button
               type="submit"
-              style={{ width: '80%' }}
+              style={{ width: "80%" }}
               className="bg-black hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl"
               onClick={handleSubmit(handleLogin)}
               disabled={isSubmitting}
-               >
+            >
               Login
             </Button>
           </motion.div>
@@ -184,7 +184,7 @@ export default function LoginCard(props : any) {
             variants={itemVariants}
             className="w-full flex justify-center"
           >
-            <OAuthForm isFormDisable={false}/>
+            <OAuthForm isFormDisable={false} />
           </motion.div>
         </CardFooter>
       </Card>

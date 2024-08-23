@@ -19,16 +19,16 @@ const PatchNoteList = () => {
     try {
       const result = await fetchPatchNotes();
       // Assuming result is an array of patch notes
-      const patchNotes: PatchNoteType[] = result.map(note => ({
+      const patchNotes: PatchNoteType[] = result.map((note) => ({
         title: `Version ${note.version}`,
         description: `${note.updateType} - ${note.date}`,
         bugFixes: note.bugFixes,
         NewFeatures: note.NewFeatures,
-        improvements: note.improvements
+        improvements: note.improvements,
       }));
       setNotes(patchNotes);
     } catch (error) {
-      console.error('Error fetching patch notes:', error);
+      console.error("Error fetching patch notes:", error);
     }
   };
 

@@ -40,7 +40,7 @@ const Header = () => {
 
   return (
     <header
-    className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-black bg-opacity-40 py-6 lg:py-4 shadow-sticky backdrop-blur-sm transition rounded-xl mt-10`}
+      className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-black bg-opacity-40 py-6 lg:py-4 shadow-sticky backdrop-blur-sm transition rounded-xl mt-10`}
     >
       <div className="container">
         <div className="relative flex items-center justify-between mx-4 xl:mx-0">
@@ -137,7 +137,7 @@ const Header = () => {
                               >
                                 {submenuItem.title}
                               </a>
-                            )
+                            ),
                           )}
                         </div>
                       </>

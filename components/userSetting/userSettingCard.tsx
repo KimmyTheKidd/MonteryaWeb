@@ -12,11 +12,15 @@ import { motion } from "framer-motion";
 import { UserAuth } from "@/config/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { fetchUser, setDisplayName, setUserName } from "./profile-sever-action/profileCRUD";
+import {
+  fetchUser,
+  setDisplayName,
+  setUserName,
+} from "./profile-sever-action/profileCRUD";
 import { showFailedToast, showSuccessToast } from "../toast/CustomToast";
 import { z } from "zod";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { EmailVerification } from "../authentication/auth-server-action/signup";
 
 const tabVariants = {
@@ -25,14 +29,14 @@ const tabVariants = {
 };
 
 const schema = z.object({
-  displayName: z.string().nonempty('Display Name is required'),
+  displayName: z.string().nonempty("Display Name is required"),
   username: z.string().optional(),
 });
 
 interface UserData {
-  displayName: string,
-  emailVerified: string,
-  username: string,
+  displayName: string;
+  emailVerified: string;
+  username: string;
   // Add other fields as necessary
 }
 
@@ -41,31 +45,36 @@ const UserSettingCard: React.FC = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [fetchedUser, setFetchedUser] = useState<UserData | null>(null);
 
-  const { handleSubmit, formState: { errors }, register, reset } = useForm({
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    reset,
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      displayName: '',
-      username: ''
-    }
+      displayName: "",
+      username: "",
+    },
   });
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const result = await fetchUser(user.uid);
-        
+
         if (result == null) {
           setFetchedUser(null);
         } else {
           setFetchedUser(result);
           reset({
-            displayName: result.displayName || '',
-            username: result.username || ''
+            displayName: result.displayName || "",
+            username: result.username || "",
           });
         }
         setLoadingUser(false);
       } catch (error) {
-        console.error('Error fetching user:', error);
+        console.error("Error fetching user:", error);
       }
     };
 
@@ -82,13 +91,13 @@ const UserSettingCard: React.FC = () => {
     return <div>Loading...</div>; // Optional: you can replace this with a loader component
   }
 
-  const SendEmailVarification = async () =>{
+  const SendEmailVarification = async () => {
     showFailedToast("Available next patch");
-  }
+  };
 
-  const SendResetEmail = async () =>{
+  const SendResetEmail = async () => {
     showFailedToast("Available next patch");
-  }
+  };
 
   const handleFormSubmit = async (values: any) => {
     try {
@@ -104,9 +113,11 @@ const UserSettingCard: React.FC = () => {
       console.error("Error updating display name:", error);
       showFailedToast("Error updating display name");
     }
-  
+
     try {
-      if(fetchedUser?.username){return}
+      if (fetchedUser?.username) {
+        return;
+      }
       if (!fetchedUser?.username && values.username) {
         let result = await setUserName(user.uid, values.username);
         if (result) {
@@ -122,7 +133,6 @@ const UserSettingCard: React.FC = () => {
       showFailedToast("Error updating username");
     }
   };
-  
 
   return (
     <div className="flex flex-col w-full max-w-4xl rounded-lg overflow-hidden p-6">
@@ -150,15 +160,16 @@ const UserSettingCard: React.FC = () => {
                   <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <div className="relative">
                       <Input
-                        {...register('displayName')}
+                        {...register("displayName")}
                         label="Display Name"
                         placeholder="Enter your username"
-                        defaultValue={fetchedUser?.displayName || ''}
+                        defaultValue={fetchedUser?.displayName || ""}
                         endContent={
                           <Tooltip
                             content={
                               <>
-                                You can always change your <strong>Display Name</strong>{" "}
+                                You can always change your{" "}
+                                <strong>Display Name</strong>{" "}
                               </>
                             }
                             color="warning"
@@ -171,15 +182,19 @@ const UserSettingCard: React.FC = () => {
                           </Tooltip>
                         }
                       />
-                      {errors.displayName && <span className="text-red-500">{errors.displayName.message}</span>}
+                      {errors.displayName && (
+                        <span className="text-red-500">
+                          {errors.displayName.message}
+                        </span>
+                      )}
                     </div>
 
                     <div className="relative mt-4">
                       <Input
-                        {...register('username')}
+                        {...register("username")}
                         label="UserName"
                         placeholder="Enter your UserName"
-                        defaultValue={fetchedUser?.username || ''}
+                        defaultValue={fetchedUser?.username || ""}
                         disabled={Boolean(fetchedUser?.username)}
                         endContent={
                           <Tooltip
@@ -251,7 +266,11 @@ const UserSettingCard: React.FC = () => {
                       <span className="font-bold text-green-600">Verified</span>
                     )}
                   </p>
-                  <Button color="primary" className="mt-4" onClick={SendEmailVarification}>
+                  <Button
+                    color="primary"
+                    className="mt-4"
+                    onClick={SendEmailVarification}
+                  >
                     Resend Verification Email
                   </Button>
                 </CardBody>
@@ -313,12 +332,11 @@ const UserSettingCard: React.FC = () => {
             >
               <Card className="h-[350px]">
                 <CardBody className="space-y-4 h-full">
-                  <h2 className="text-xl font-semibold mb-4">
-                    Support
-                  </h2>
+                  <h2 className="text-xl font-semibold mb-4">Support</h2>
                   <p>
-                    For any issues or questions, please contact our support team. 
-                    You can reach us at support@example.com or use the form below.
+                    For any issues or questions, please contact our support
+                    team. You can reach us at support@example.com or use the
+                    form below.
                   </p>
                   <Input
                     label="Issue Description"

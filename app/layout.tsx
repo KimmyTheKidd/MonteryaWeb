@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import Header from "@/components/Header";
-import { AuthContextProvider } from '../config/AuthContext';
+import { AuthContextProvider } from "../config/AuthContext";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
@@ -30,17 +30,17 @@ export default function RootLayout({
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <AuthContextProvider>
-        <Providers>
-          <Toaster/>
-          <div className="relative flex flex-col h-screen">
-            <Header />
-            {/* <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow"> */}
-            <main>{children}</main>
-            {/* <footer className="w-full flex items-center justify-center py-3 bg-white">
+          <Providers>
+            <Toaster />
+            <div className="relative flex flex-col h-screen">
+              <Header />
+              {/* <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow"> */}
+              <main>{children}</main>
+              {/* <footer className="w-full flex items-center justify-center py-3 bg-white">
               <Link
                 isExternal
                 className="flex items-center gap-1 text-current"
@@ -51,9 +51,9 @@ export default function RootLayout({
                 <p className="text-primary">NextUI</p>
               </Link>
             </footer> */}
-          </div>
-        </Providers>
-                </AuthContextProvider>
+            </div>
+          </Providers>
+        </AuthContextProvider>
       </body>
     </html>
   );

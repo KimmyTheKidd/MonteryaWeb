@@ -1,7 +1,19 @@
-import { db , storage } from '@/config/firebase';
-import { FieldValue, collection, doc, getDoc, getDocs, limit, orderBy, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid';
+import { db, storage } from "@/config/firebase";
+import {
+  FieldValue,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 interface BugData {
   userId: string;
@@ -32,17 +44,17 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
     const userDoc = await getDoc(userDocRef);
     console.log(data);
     if (!userDoc.exists()) {
-      console.error('User does not exist');
-      return JSON.stringify({ status: 404, message: 'User not found' });
+      console.error("User does not exist");
+      return JSON.stringify({ status: 404, message: "User not found" });
     }
 
     // Check the time since the last report
     const lastReportQuery = collection(db, "bugReport");
     const q = query(
       lastReportQuery,
-      where('userId', '==', data.submitId),
-      orderBy('timeCreated', 'desc'),
-      limit(1)
+      where("userId", "==", data.submitId),
+      orderBy("timeCreated", "desc"),
+      limit(1),
     );
 
     console.log(q);
@@ -59,10 +71,12 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
 
       // Check if 5 minutes have passed
       if (timeDiff < fiveMinutesInMillis) {
-        return JSON.stringify({ status: 429, message: 'Please wait before submitting another bug report.' });
+        return JSON.stringify({
+          status: 429,
+          message: "Please wait before submitting another bug report.",
+        });
       }
     }
-
 
     const BugID = uuidv4();
     const bugData: BugData = {
@@ -77,7 +91,10 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
     };
 
     if (data.bugImage) {
-      const imageRef = ref(storage, `BugReports/${data.bugImage.name + uuidv4()}`);
+      const imageRef = ref(
+        storage,
+        `BugReports/${data.bugImage.name + uuidv4()}`,
+      );
       const uploadResult = await uploadBytes(imageRef, data.bugImage);
       console.log("Image uploaded successfully");
 
@@ -90,7 +107,10 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
 
     return JSON.stringify({ status: 200 });
   } catch (error) {
-    console.error('Error sending bug report:', error);
-    return JSON.stringify({ status: 500, message: error || 'An unexpected error occurred' });
+    console.error("Error sending bug report:", error);
+    return JSON.stringify({
+      status: 500,
+      message: error || "An unexpected error occurred",
+    });
   }
 }

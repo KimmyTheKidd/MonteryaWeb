@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { db } from "@/config/firebase";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { SHA256 } from 'crypto-js';
+import { SHA256 } from "crypto-js";
 import { string } from "zod";
 
 // import { addDoc, collection, doc, getDoc , serverTimestamp, setDoc} from "firebase/firestore";
@@ -51,7 +51,7 @@ export async function CheckDupes(data: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(json), // body data type must match "Content-Type" header
-      }
+      },
     );
 
     console.log(response);
@@ -81,7 +81,7 @@ export async function signupWithOAuth(user: OAuthUser) {
     } else {
       const userId = await genUserId(user.displayName);
       console.log(user.displayName);
-      await setUserData(userId, user.email, user.uid , true);
+      await setUserData(userId, user.email, user.uid, true);
       await setUserBalance(userId, user.uid);
       return false;
     }
@@ -98,7 +98,7 @@ export async function signUpWithEmail(data: {
   const auth = getAuth();
 
   try {
-    console.log('Signup data:', data);
+    console.log("Signup data:", data);
     if (data.password !== data.confirmPassword) {
       throw new Error("Passwords do not match");
     }
@@ -108,13 +108,13 @@ export async function signUpWithEmail(data: {
     const credential = await createUserWithEmailAndPassword(
       auth,
       data.email,
-      data.password
-    )
-    await setUserData(newUserId, data.email, credential.user.uid , false);
+      data.password,
+    );
+    await setUserData(newUserId, data.email, credential.user.uid, false);
     await setUserBalance(newUserId, credential.user.uid);
     EmailVerification(credential.user);
     return JSON.stringify({ status: 200 });
-  } catch (error :any) {
+  } catch (error: any) {
     // console.log(error.code);
     let errorMessage: string;
 
@@ -150,7 +150,7 @@ export async function signInWithEmail(data: {
     const userCredential = await signInWithEmailAndPassword(
       auth,
       data.email,
-      data.password
+      data.password,
     );
     // If sign-in is successful, you may return the user data or a success status
     return JSON.stringify({ status: 200, user: userCredential.user });
@@ -185,7 +185,12 @@ export async function AfterGoogleSignUp() {
   //addUserToDatabase();
 }
 
-async function setUserData(user: string, email: string, headerID: string , oAuth : boolean) {
+async function setUserData(
+  user: string,
+  email: string,
+  headerID: string,
+  oAuth: boolean,
+) {
   try {
     const docRef = doc(db, "users", headerID);
     await setDoc(docRef, {
@@ -219,8 +224,8 @@ async function setUserBalance(newuserid: string, headerID: string) {
   }
 }
 
-export async function EmailVerification(user:any) {
-  sendEmailVerification(user).then(()=>{
+export async function EmailVerification(user: any) {
+  sendEmailVerification(user).then(() => {
     console.log("Email Varification Send!");
-  })
+  });
 }

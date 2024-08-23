@@ -225,7 +225,7 @@ export default function SignUpCard() {
         </CardBody>
         <Divider />
         <CardFooter className="flex flex-col items-center py-4">
-          <OAuthForm isFormDisable={isFormDisable}/>
+          <OAuthForm isFormDisable={isFormDisable} />
         </CardFooter>
       </Card>
     </motion.div>

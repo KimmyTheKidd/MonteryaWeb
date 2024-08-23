@@ -1,10 +1,15 @@
-"use client"
-import { useContext, createContext, useState, useEffect } from 'react';
-import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from '@firebase/auth';
-import { auth } from './firebase';
-import LoadingScreen from '../components/LoadingScene/LoadingScreen';
-import { fetchplayerInfo } from '@/components/authentication/auth-server-action/authorsie';
-import { signupWithOAuth } from '@/components/authentication/auth-server-action/signup';
+"use client";
+import { useContext, createContext, useState, useEffect } from "react";
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+} from "@firebase/auth";
+import { auth } from "./firebase";
+import LoadingScreen from "../components/LoadingScene/LoadingScreen";
+import { fetchplayerInfo } from "@/components/authentication/auth-server-action/authorsie";
+import { signupWithOAuth } from "@/components/authentication/auth-server-action/signup";
 
 // displayName
 // email
@@ -13,7 +18,6 @@ import { signupWithOAuth } from '@/components/authentication/auth-server-action/
 // userId
 // username
 // usertype
-
 
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
@@ -28,36 +32,35 @@ export const AuthContextProvider = ({ children }) => {
       globalAuthHandler = resolve;
     });
 
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const data = await signInWithPopup(auth, provider);
 
-    const googleSignIn = async () => {
-      const provider = new GoogleAuthProvider();
-      try {
-        const data = await signInWithPopup(auth, provider);
-    
-        if (!data || data.error) {
-          console.error('No user data received or there was an error:', data ? data.error : 'Unknown error');
-          return { success: false, errorType: 'NO_USER_DATA' };
-        }
-    
-        // Check if the email domain is correct
-        const email = data.user.email;
-        // if (!email.endsWith('@woxacorp.com')) {
-        //   console.error('You must use a woxacorp.com email address.');
-        //   await signOut(auth);
-        //   return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
-        // }
-    
-        await signupWithOAuth(data.user);
-    
-        return { success: true };
-    
-      } catch (error) {
-        console.error('Error during Google sign-in:', error);
-        return { success: false, errorType: 'SIGN_IN_ERROR' }; // Ensure the function returns error type if there's an error
+      if (!data || data.error) {
+        console.error(
+          "No user data received or there was an error:",
+          data ? data.error : "Unknown error",
+        );
+        return { success: false, errorType: "NO_USER_DATA" };
       }
-    };
-    
 
+      // Check if the email domain is correct
+      const email = data.user.email;
+      // if (!email.endsWith('@woxacorp.com')) {
+      //   console.error('You must use a woxacorp.com email address.');
+      //   await signOut(auth);
+      //   return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
+      // }
+
+      await signupWithOAuth(data.user);
+
+      return { success: true };
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+      return { success: false, errorType: "SIGN_IN_ERROR" }; // Ensure the function returns error type if there's an error
+    }
+  };
 
   const SetGameState = async (param) => {
     setisGameOpen(param);
@@ -69,7 +72,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-   
     const SetPlayerInfo = async (currentUser) => {
       try {
         const setInfo = await fetchplayerInfo(currentUser.uid);
@@ -79,7 +81,7 @@ export const AuthContextProvider = ({ children }) => {
         console.log(error.message);
       }
     };
-    
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -93,13 +95,19 @@ export const AuthContextProvider = ({ children }) => {
       }
     });
 
-   
-
     return () => unsubscribe();
   }, [user]);
   return (
     <AuthContext.Provider
-      value={{ user, currentuser, googleSignIn, logOut, SetGameState, isGameOpen, authorise }}
+      value={{
+        user,
+        currentuser,
+        googleSignIn,
+        logOut,
+        SetGameState,
+        isGameOpen,
+        authorise,
+      }}
     >
       {loading ? <LoadingScreen /> : children}
     </AuthContext.Provider>
