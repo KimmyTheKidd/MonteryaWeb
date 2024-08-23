@@ -98,9 +98,9 @@ const BugReportButton = () => {
     <>
       <Tooltip
         content={
-          <div className="px-2 py-1">
-            <div className="text-sm font-bold">Bug Report</div>
-            <div className="text-xs">Report any bugs you encounter</div>
+          <div className="px-2 py-1 ">
+            <div className="text-sm font-bold text-black">Bug Report</div>
+            <div className="text-xs text-zinc-800">Report any bugs you encounter</div>
           </div>
         }
       >
@@ -121,7 +121,7 @@ const BugReportButton = () => {
         placement="center"
       >
         <ModalContent>
-          <ModalHeader className="text-lg font-bold">Bug Report</ModalHeader>
+          <ModalHeader className="text-lg font-bold text-zinc-800">Bug Report</ModalHeader>
           <ModalBody>
             <Select
               {...register('bugType')}

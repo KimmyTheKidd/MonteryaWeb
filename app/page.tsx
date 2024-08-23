@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Metadata } from 'next';
 import ScrollUp from '@/components/Common/ScrollUp';
 import Hero from '@/components/Hero';

@@ -35,24 +35,26 @@ const PatchNote = ({ note, index }: PatchNoteProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="relative bg-[#131D2E] p-4 rounded-lg shadow-lg text-honey-200 transition-transform transform hover:bg-[#182438] hover:shadow-xl hover:-translate-y-1"
-    >
+      className="relative bg-white p-4 rounded-lg shadow-lg text-black transition-transform transform hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1"
+      >
       <div className="flex flex-col items-center">
-        <FontAwesomeIcon
-          icon={faExclamationCircle}
-          className="text-3xl mb-2 text-honey-200 cursor-pointer hover:text-honey-100 transition-colors"
-          onClick={onOpen}
-        />
-        <h4
-          className="text-lg font-semibold mb-2 cursor-pointer hover:text-honey-100 transition-colors"
-          onClick={onOpen}
-        >
-          {note.title}
-        </h4>
-        <div className="transition-all duration-300 h-[60px] overflow-hidden">
-          <p>{note.description}</p>
-        </div>
-      </div>
+  <FontAwesomeIcon
+    icon={faExclamationCircle}
+    className="text-3xl mb-2 text-honey-200 cursor-pointer hover:text-honey-100 transition-colors"
+    onClick={onOpen}
+  />
+  <button
+    className="text-lg font-semibold mb-2 cursor-pointer hover:text-honey-100 transition-colors bg-transparent border-none p-0"
+    onClick={onOpen}
+    aria-label={`Open ${note.title}`}
+  >
+    {note.title}
+  </button>
+  <div className="transition-all duration-300 h-[60px] overflow-hidden">
+    <p>{note.description}</p>
+  </div>
+</div>
+
 
       <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
         <ModalContent className="bg-[#131D2E] text-honey-200">

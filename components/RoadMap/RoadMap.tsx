@@ -111,13 +111,16 @@ const Roadmap = () => {
         setItemWidth(containerWidth / nodesVisible);
       }
     };
-
-    updateItemWidth();
-    window.addEventListener('resize', updateItemWidth);
-
-    return () => window.removeEventListener('resize', updateItemWidth);
+  
+    // Only add the event listener if `window` is defined
+    if (typeof window !== 'undefined') {
+      updateItemWidth();
+      window.addEventListener('resize', updateItemWidth);
+  
+      return () => window.removeEventListener('resize', updateItemWidth);
+    }
   }, [nodesVisible]);
-
+  
   const scrollLeft = () => {
     setScrollPosition((prev) => Math.max(prev - 1, 0));
   };

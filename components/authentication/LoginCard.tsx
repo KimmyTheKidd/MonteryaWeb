@@ -43,7 +43,7 @@ const FormSchema = z.object({
   password: z.string().min(6, { message: 'Password is too short' }),
 });
 
-export default function LoginCard(props: any) {
+export default function LoginCard() {
   const { user } = UserAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

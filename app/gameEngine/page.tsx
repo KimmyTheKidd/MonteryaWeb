@@ -235,7 +235,7 @@ export default function Game() {
           <Unity
             unityProvider={unityProvider}
             style={{ width: '100%', height: '100%' }}
-            tabIndex={1}
+            tabIndex={0}
           />
         </div>
         <div className="flex items-center space-x-4 mt-4">
@@ -261,7 +261,15 @@ export default function Game() {
           >
             <div
               className="flex items-center justify-center p-1 bg-white rounded-full shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              role="button"
+              tabIndex={0}
               onClick={reloadPage}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  reloadPage();
+                }
+              }}
             >
               <FontAwesomeIcon
                 icon={faRotateRight}
@@ -270,106 +278,107 @@ export default function Game() {
               />
             </div>
           </Tooltip>
-
-          <Button color="primary" onPress={onOpen} className="capitalize">
-            How To Play
-          </Button>
-
-          <Modal
-            backdrop="blur"
-            isOpen={isOpen}
-            onClose={onClose}
-            className="max-w-3xl mx-auto p-4"
-          >
-            <ModalContent className="rounded-lg shadow-lg mx-auto max-w-4xl">
-              <ModalHeader className="text-center text-lg font-bold flex items-center justify-center gap-2">
-                {currentPage.title}
-                <Tooltip
-                  content={
-                    <div className="p-2 text-xs text-white bg-black rounded">
-                      {currentPage.tooltip ||
-                        'Additional information about this page.'}
-                    </div>
-                  }
-                  placement="top"
-                >
-                  <FontAwesomeIcon
-                    icon={faQuestionCircle}
-                    className="text-blue-500 cursor-pointer hover:text-blue-700"
-                    size="lg"
-                  />
-                </Tooltip>
-              </ModalHeader>
-              <ModalBody className="p-4">
-                {Array.isArray(currentPage.content) ? (
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {currentPage.content.map((item, index) => (
-                      <div
-                        key={index}
-                        className="relative flex-shrink-0 w-1/3 sm:w-1/4 lg:w-1/5 p-2"
-                      >
-                        <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-md">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="text-center mt-2">
-                          <h3 className="text-sm font-semibold">{item.name}</h3>
-                          <p className="text-xs">{item.description}</p>
-                          {item.tooltip && (
-                            <Tooltip
-                              content={
-                                <div className="p-2 text-xs text-white bg-black rounded">
-                                  {item.tooltip}
-                                </div>
-                              }
-                              // color="success"
-                              placement="top"
-                            >
-                              <FontAwesomeIcon
-                                icon={faQuestionCircle}
-                                className="text-blue-500 cursor-pointer hover:text-blue-700 ml-1"
-                                size="sm"
-                              />
-                            </Tooltip>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-center">{currentPage.content}</p>
-                )}
-              </ModalBody>
-              <ModalFooter className="flex justify-between">
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                {page > 0 && (
-                  <Button
-                    color="primary"
-                    variant="light"
-                    onPress={handlePrevious}
-                  >
-                    Previous
-                  </Button>
-                )}
-                {page < Tutorial_Pages.length - 1 ? (
-                  <Button color="primary" onPress={handleNext}>
-                    Next
-                  </Button>
-                ) : (
-                  <Button color="primary" onPress={onClose}>
-                    Finish
-                  </Button>
-                )}
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
         </div>
       </div>
     </section>
   );
 }
+
+
+{/* <Button color="primary" onPress={onOpen} className="capitalize">
+How To Play
+</Button>
+
+<Modal
+backdrop="blur"
+isOpen={isOpen}
+onClose={onClose}
+className="max-w-3xl mx-auto p-4"
+>
+<ModalContent className="rounded-lg shadow-lg mx-auto max-w-4xl">
+  <ModalHeader className="text-center text-lg font-bold flex items-center justify-center gap-2">
+    {currentPage.title}
+    <Tooltip
+      content={
+        <div className="p-2 text-xs text-white bg-black rounded">
+          {currentPage.tooltip ||
+            'Additional information about this page.'}
+        </div>
+      }
+      placement="top"
+    >
+      <FontAwesomeIcon
+        icon={faQuestionCircle}
+        className="text-blue-500 cursor-pointer hover:text-blue-700"
+        size="lg"
+      />
+    </Tooltip>
+  </ModalHeader>
+  <ModalBody className="p-4">
+    {Array.isArray(currentPage.content) ? (
+      <div className="flex flex-wrap justify-center gap-4">
+        {currentPage.content.map((item, index) => (
+          <div
+            key={index}
+            className="relative flex-shrink-0 w-1/3 sm:w-1/4 lg:w-1/5 p-2"
+          >
+            <div className="relative w-full h-32 overflow-hidden rounded-lg shadow-md">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="text-center mt-2">
+              <h3 className="text-sm font-semibold">{item.name}</h3>
+              <p className="text-xs">{item.description}</p>
+              {item.tooltip && (
+                <Tooltip
+                  content={
+                    <div className="p-2 text-xs text-white bg-black rounded">
+                      {item.tooltip}
+                    </div>
+                  }
+                  // color="success"
+                  placement="top"
+                >
+                  <FontAwesomeIcon
+                    icon={faQuestionCircle}
+                    className="text-blue-500 cursor-pointer hover:text-blue-700 ml-1"
+                    size="sm"
+                  />
+                </Tooltip>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p className="text-sm text-center">{currentPage.content}</p>
+    )}
+  </ModalBody>
+  <ModalFooter className="flex justify-between">
+    <Button color="danger" variant="light" onPress={onClose}>
+      Close
+    </Button>
+    {page > 0 && (
+      <Button
+        color="primary"
+        variant="light"
+        onPress={handlePrevious}
+      >
+        Previous
+      </Button>
+    )}
+    {page < Tutorial_Pages.length - 1 ? (
+      <Button color="primary" onPress={handleNext}>
+        Next
+      </Button>
+    ) : (
+      <Button color="primary" onPress={onClose}>
+        Finish
+      </Button>
+    )}
+  </ModalFooter>
+</ModalContent>
+</Modal> */}

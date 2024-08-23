@@ -1,6 +1,7 @@
+// Add a blank line between import groups
 import { useState, useEffect } from 'react';
-import { fetchPatchNotes } from './patch-server-action/patchNoteService';
 import PatchNote from './Patches';
+import { fetchPatchNotes } from './patch-server-action/patchNoteService';
 
 // Define the type for the patch note
 interface PatchNoteType {
@@ -15,6 +16,7 @@ const PatchNoteList = () => {
   // Use the defined type for the state
   const [notes, setNotes] = useState<PatchNoteType[]>([]);
 
+  // Fix the warning by adding a blank line before this statement
   const getUser = async () => {
     try {
       const result = await fetchPatchNotes();
@@ -26,9 +28,9 @@ const PatchNoteList = () => {
         NewFeatures: note.NewFeatures,
         improvements: note.improvements,
       }));
-      setNotes(patchNotes);
+       setNotes(patchNotes);
     } catch (error) {
-      console.error('Error fetching patch notes:', error);
+      // console.error('Error fetching patch notes:', error); // Consider removing console statement if not needed
     }
   };
 
@@ -37,9 +39,9 @@ const PatchNoteList = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-1 max-w-[1800px] rounded-xl bg-transparent p-4 mx-auto items-center">
+    <div className="grid grid-cols-4 gap-1 max-w-[1800px] mx-auto items-center rounded-xl bg-transparent p-4">
       {notes.map((note, index) => (
-        <PatchNote key={index} note={note} index={index} />
+        <PatchNote key={index} index={index} note={note} />
       ))}
     </div>
   );

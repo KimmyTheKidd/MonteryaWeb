@@ -8,6 +8,7 @@ import { fontSans } from '@/config/fonts';
 import Header from '@/components/Header';
 import { AuthContextProvider } from '../config/AuthContext';
 import { Toaster } from 'react-hot-toast';
+import '../styles/globals.css';
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +36,7 @@ export default function RootLayout({
         )}
       >
         <AuthContextProvider>
-          <Providers>
+          {/* <Providers> */}
             <Toaster />
             <div className="relative flex flex-col h-screen">
               <Header />
@@ -53,7 +54,7 @@ export default function RootLayout({
               </Link>
             </footer> */}
             </div>
-          </Providers>
+          {/* </Providers> */}
         </AuthContextProvider>
       </body>
     </html>

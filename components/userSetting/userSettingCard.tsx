@@ -95,9 +95,9 @@ const UserSettingCard: React.FC = () => {
     showFailedToast('Available next patch');
   };
 
-  const SendResetEmail = async () => {
-    showFailedToast('Available next patch');
-  };
+  // const SendResetEmail = async () => {
+  //   showFailedToast('Available next patch');
+  // };
 
   const handleFormSubmit = async (values: any) => {
     try {
@@ -135,18 +135,18 @@ const UserSettingCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-4xl rounded-lg overflow-hidden p-6">
+    <div className="flex  flex-col w-full max-w-4xl rounded-lg overflow-hidden p-6">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Tabs aria-label="User Settings">
+        <Tabs aria-label="UserSettings" className='text-white'>
           {/* User Settings Tab */}
           <Tab
             key="user-settings"
             title="User Settings"
-            className="py-3 text-sm font-medium text-gray-700 border-b-2 border-transparent"
+            className="py-3  text-sm font-medium text-gray-700 border-b-2 border-transparent"
           >
             <motion.div
               initial="hidden"
@@ -155,8 +155,8 @@ const UserSettingCard: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <Card className="h-[350px]">
-                <CardBody className="space-y-4 h-full">
-                  <h2 className="text-xl font-semibold mb-4">User Settings</h2>
+                <CardBody className="space-y-4 h-full ">
+                  <h2 className="text-xl  font-semibold mb-4">User Settings</h2>
                   <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <div className="relative">
                       <Input
