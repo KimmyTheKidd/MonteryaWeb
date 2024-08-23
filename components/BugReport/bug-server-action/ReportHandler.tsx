@@ -1,4 +1,4 @@
-import { db, storage } from "@/config/firebase";
+import { db, storage } from '@/config/firebase';
 import {
   FieldValue,
   collection,
@@ -11,9 +11,9 @@ import {
   serverTimestamp,
   setDoc,
   where,
-} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
+} from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 interface BugData {
   userId: string;
@@ -40,21 +40,21 @@ export interface BugReportData {
 export async function SendBugReport(data: BugReportData): Promise<string> {
   try {
     // Check if user exists
-    const userDocRef = doc(db, "users", data.userId);
+    const userDocRef = doc(db, 'users', data.userId);
     const userDoc = await getDoc(userDocRef);
     console.log(data);
     if (!userDoc.exists()) {
-      console.error("User does not exist");
-      return JSON.stringify({ status: 404, message: "User not found" });
+      console.error('User does not exist');
+      return JSON.stringify({ status: 404, message: 'User not found' });
     }
 
     // Check the time since the last report
-    const lastReportQuery = collection(db, "bugReport");
+    const lastReportQuery = collection(db, 'bugReport');
     const q = query(
       lastReportQuery,
-      where("userId", "==", data.submitId),
-      orderBy("timeCreated", "desc"),
-      limit(1),
+      where('userId', '==', data.submitId),
+      orderBy('timeCreated', 'desc'),
+      limit(1)
     );
 
     console.log(q);
@@ -73,7 +73,7 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
       if (timeDiff < fiveMinutesInMillis) {
         return JSON.stringify({
           status: 429,
-          message: "Please wait before submitting another bug report.",
+          message: 'Please wait before submitting another bug report.',
         });
       }
     }
@@ -93,24 +93,24 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
     if (data.bugImage) {
       const imageRef = ref(
         storage,
-        `BugReports/${data.bugImage.name + uuidv4()}`,
+        `BugReports/${data.bugImage.name + uuidv4()}`
       );
       const uploadResult = await uploadBytes(imageRef, data.bugImage);
-      console.log("Image uploaded successfully");
+      console.log('Image uploaded successfully');
 
       const url = await getDownloadURL(uploadResult.ref);
       bugData.bugImage = url;
     }
     // Save bugData to Firestore
-    await setDoc(doc(collection(db, "bugReport")), bugData);
-    console.log("Bug report saved successfully");
+    await setDoc(doc(collection(db, 'bugReport')), bugData);
+    console.log('Bug report saved successfully');
 
     return JSON.stringify({ status: 200 });
   } catch (error) {
-    console.error("Error sending bug report:", error);
+    console.error('Error sending bug report:', error);
     return JSON.stringify({
       status: 500,
-      message: error || "An unexpected error occurred",
+      message: error || 'An unexpected error occurred',
     });
   }
 }

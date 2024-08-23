@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -9,17 +9,17 @@ import {
   Image,
   Button,
   Input,
-} from "@nextui-org/react";
-import { EyeFilledIcon, EyeSlashFilledIcon } from "../icons";
-import OAuthForm from "./OAuthForm";
-import { motion } from "framer-motion"; // Import Framer Motion
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { UserAuth } from "@/config/AuthContext";
-import { useRouter } from "next/navigation";
-import { showFailedToast, showSuccessToast } from "../toast/CustomToast";
-import { signInWithEmail } from "./auth-server-action/signup";
+} from '@nextui-org/react';
+import { EyeFilledIcon, EyeSlashFilledIcon } from '../icons';
+import OAuthForm from './OAuthForm';
+import { motion } from 'framer-motion'; // Import Framer Motion
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { UserAuth } from '@/config/AuthContext';
+import { useRouter } from 'next/navigation';
+import { showFailedToast, showSuccessToast } from '../toast/CustomToast';
+import { signInWithEmail } from './auth-server-action/signup';
 
 const containerVariants = {
   hidden: { opacity: 1, scale: 0 },
@@ -39,8 +39,8 @@ const itemVariants = {
 };
 
 const FormSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Password is too short" }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(6, { message: 'Password is too short' }),
 });
 
 export default function LoginCard(props: any) {
@@ -52,7 +52,7 @@ export default function LoginCard(props: any) {
 
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push('/');
     }
   }, [user, router]);
 
@@ -63,8 +63,8 @@ export default function LoginCard(props: any) {
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -76,11 +76,11 @@ export default function LoginCard(props: any) {
       if (status !== 200) {
         showFailedToast(error);
       } else {
-        showSuccessToast("Login Successfully");
-        router.push("/");
+        showSuccessToast('Login Successfully');
+        router.push('/');
       }
     } catch (error) {
-      showFailedToast("An error occurred");
+      showFailedToast('An error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -116,7 +116,7 @@ export default function LoginCard(props: any) {
                 label="Email"
                 placeholder="Enter your email"
                 fullWidth
-                {...register("email")}
+                {...register('email')}
               />
               {errors.email && (
                 <p className="text-red-600">{errors.email.message}</p>
@@ -139,9 +139,9 @@ export default function LoginCard(props: any) {
                     )}
                   </button>
                 }
-                type={isVisible ? "text" : "password"}
+                type={isVisible ? 'text' : 'password'}
                 fullWidth
-                {...register("password")}
+                {...register('password')}
               />
               {errors.password && (
                 <p className="text-red-600">{errors.password.message}</p>
@@ -157,7 +157,7 @@ export default function LoginCard(props: any) {
               className="flex justify-end mt-2" // Adjusted margin to ensure proper spacing
             >
               <p className="text-sm text-gray-200 cursor-pointer hover:underline">
-                Don't have an account? Sign up
+                Don&apos;t have an account? Sign up
               </p>
             </motion.div>
           </form>
@@ -171,7 +171,7 @@ export default function LoginCard(props: any) {
             {/* Styled login button */}
             <Button
               type="submit"
-              style={{ width: "80%" }}
+              style={{ width: '80%' }}
               className="bg-black hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl"
               onClick={handleSubmit(handleLogin)}
               disabled={isSubmitting}

@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBug,
   faPlusCircle,
   faTools,
   faExclamationCircle,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 import {
   Modal,
   ModalBody,
@@ -13,8 +13,8 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
+} from '@nextui-org/modal';
+import { Button } from '@nextui-org/button';
 
 interface PatchNoteProps {
   note: {

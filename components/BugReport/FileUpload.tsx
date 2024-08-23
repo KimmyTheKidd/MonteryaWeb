@@ -1,9 +1,10 @@
-"use client";
-import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@nextui-org/button";
-import { useRef, useState } from "react";
-import { FaFileUpload } from "react-icons/fa";
+'use client';
+
+import React, { useRef, useState } from "react";
+import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@nextui-org/button';
+import Image from 'next/image';
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -28,7 +29,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, onReset }) => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
-
+  
     if (e.dataTransfer.files.length) {
       const file = e.dataTransfer.files[0];
       handleFileUpload(file);
@@ -48,7 +49,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, onReset }) => {
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
 
-      if (item.kind === "file" && item.type.startsWith("image/")) {
+      if (item.kind === 'file' && item.type.startsWith('image/')) {
         const file = item.getAsFile();
         if (file) {
           handleFileUpload(file);
@@ -78,15 +79,15 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, onReset }) => {
   return (
     <div
       style={{
-        border: `2px dashed ${dragging ? "blue" : "gray"}`,
-        padding: "1rem",
-        borderRadius: "8px",
-        textAlign: "center",
-        minHeight: "100px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        border: `2px dashed ${dragging ? 'blue' : 'gray'}`,
+        padding: '1rem',
+        borderRadius: '8px',
+        textAlign: 'center',
+        minHeight: '100px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragEnter}
@@ -97,47 +98,48 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, onReset }) => {
       <input
         type="file"
         ref={fileInputRef}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         onChange={handleFileSelect}
       />
       <div>
         {selectedImage ? (
           <>
-            <img
+            <Image
               src={selectedImage}
               alt="Uploaded Preview"
+              layout="responsive"
+              width={500}
+              height={200}
               style={{
-                display: "block",
-                margin: "0 auto",
-                maxWidth: "100%",
-                maxHeight: "200px",
-                marginBottom: "1rem",
-                textAlign: "center",
+                margin: '0 auto',
+                maxWidth: '100%',
+                maxHeight: '200px',
+                marginBottom: '1rem',
+                textAlign: 'center',
               }}
             />
-
-            <button
+            <Button
               onClick={resetFileUpload}
-              style={{ marginBottom: "1rem" }}
-              color="error"
+              color="danger"
+              style={{ marginBottom: '1rem' }}
             >
               Clear Image
-            </button>
+            </Button>
           </>
         ) : (
           <Button
             onClick={() => fileInputRef.current?.click()}
             color="primary"
-            style={{ marginBottom: "2rem" }}
+            style={{ marginBottom: '2rem' }}
           >
             <FontAwesomeIcon icon={faFileArrowUp} />
             Select File
           </Button>
         )}
-        <p color="gray">
+        <p style={{ color: 'gray' }}>
           {selectedImage
-            ? "Drag and drop or paste another image to replace"
-            : "Drag and drop your file here, or click to select a file or paste an image."}
+            ? 'Drag and drop or paste another image to replace'
+            : 'Drag and drop your file here, or click to select a file or paste an image.'}
         </p>
       </div>
     </div>

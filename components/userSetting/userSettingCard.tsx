@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Tabs,
   Tab,
@@ -7,21 +7,21 @@ import {
   Input,
   Button,
   Tooltip,
-} from "@nextui-org/react";
-import { motion } from "framer-motion";
-import { UserAuth } from "@/config/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+} from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import { UserAuth } from '@/config/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   fetchUser,
   setDisplayName,
   setUserName,
-} from "./profile-sever-action/profileCRUD";
-import { showFailedToast, showSuccessToast } from "../toast/CustomToast";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { EmailVerification } from "../authentication/auth-server-action/signup";
+} from './profile-sever-action/profileCRUD';
+import { showFailedToast, showSuccessToast } from '../toast/CustomToast';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { EmailVerification } from '../authentication/auth-server-action/signup';
 
 const tabVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -29,7 +29,7 @@ const tabVariants = {
 };
 
 const schema = z.object({
-  displayName: z.string().nonempty("Display Name is required"),
+  displayName: z.string().nonempty('Display Name is required'),
   username: z.string().optional(),
 });
 
@@ -53,8 +53,8 @@ const UserSettingCard: React.FC = () => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      displayName: "",
-      username: "",
+      displayName: '',
+      username: '',
     },
   });
 
@@ -68,13 +68,13 @@ const UserSettingCard: React.FC = () => {
         } else {
           setFetchedUser(result);
           reset({
-            displayName: result.displayName || "",
-            username: result.username || "",
+            displayName: result.displayName || '',
+            username: result.username || '',
           });
         }
         setLoadingUser(false);
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.error('Error fetching user:', error);
       }
     };
 
@@ -92,11 +92,11 @@ const UserSettingCard: React.FC = () => {
   }
 
   const SendEmailVarification = async () => {
-    showFailedToast("Available next patch");
+    showFailedToast('Available next patch');
   };
 
   const SendResetEmail = async () => {
-    showFailedToast("Available next patch");
+    showFailedToast('Available next patch');
   };
 
   const handleFormSubmit = async (values: any) => {
@@ -104,14 +104,14 @@ const UserSettingCard: React.FC = () => {
       if (values.displayName !== currentuser.displayName) {
         let result = await setDisplayName(user.uid, values.displayName);
         if (result) {
-          showSuccessToast("Display Name Updated Successfully");
+          showSuccessToast('Display Name Updated Successfully');
         } else {
-          showFailedToast("Display Name Update Failed");
+          showFailedToast('Display Name Update Failed');
         }
       }
     } catch (error) {
-      console.error("Error updating display name:", error);
-      showFailedToast("Error updating display name");
+      console.error('Error updating display name:', error);
+      showFailedToast('Error updating display name');
     }
 
     try {
@@ -121,16 +121,16 @@ const UserSettingCard: React.FC = () => {
       if (!fetchedUser?.username && values.username) {
         let result = await setUserName(user.uid, values.username);
         if (result) {
-          showSuccessToast("Username Updated Successfully");
+          showSuccessToast('Username Updated Successfully');
         } else {
-          showFailedToast("Username Update Failed");
+          showFailedToast('Username Update Failed');
         }
       } else if (fetchedUser?.username) {
-        showFailedToast("Username can only be set once");
+        showFailedToast('Username can only be set once');
       }
     } catch (error) {
-      console.error("Error updating username:", error);
-      showFailedToast("Error updating username");
+      console.error('Error updating username:', error);
+      showFailedToast('Error updating username');
     }
   };
 
@@ -160,16 +160,16 @@ const UserSettingCard: React.FC = () => {
                   <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <div className="relative">
                       <Input
-                        {...register("displayName")}
+                        {...register('displayName')}
                         label="Display Name"
                         placeholder="Enter your username"
-                        defaultValue={fetchedUser?.displayName || ""}
+                        defaultValue={fetchedUser?.displayName || ''}
                         endContent={
                           <Tooltip
                             content={
                               <>
-                                You can always change your{" "}
-                                <strong>Display Name</strong>{" "}
+                                You can always change your{' '}
+                                <strong>Display Name</strong>{' '}
                               </>
                             }
                             color="warning"
@@ -191,16 +191,16 @@ const UserSettingCard: React.FC = () => {
 
                     <div className="relative mt-4">
                       <Input
-                        {...register("username")}
+                        {...register('username')}
                         label="UserName"
                         placeholder="Enter your UserName"
-                        defaultValue={fetchedUser?.username || ""}
+                        defaultValue={fetchedUser?.username || ''}
                         disabled={Boolean(fetchedUser?.username)}
                         endContent={
                           <Tooltip
                             content={
                               <>
-                                You can only change your{" "}
+                                You can only change your{' '}
                                 <strong>UserName once. </strong>
                               </>
                             }
@@ -221,7 +221,7 @@ const UserSettingCard: React.FC = () => {
                         label="User ID"
                         placeholder="Your User ID"
                         disabled
-                        value={currentuser.userId || ""}
+                        value={currentuser.userId || ''}
                       />
                     </div>
 
@@ -259,7 +259,7 @@ const UserSettingCard: React.FC = () => {
                     Email is :
                     {!currentuser.emailVerified ? (
                       <span className="font-bold text-red-600">
-                        {" "}
+                        {' '}
                         Is Not Verified
                       </span>
                     ) : (

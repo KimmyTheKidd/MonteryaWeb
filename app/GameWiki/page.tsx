@@ -1,7 +1,7 @@
 // pages/about.js
-"use client";
-import { motion } from "framer-motion";
-import GameWikiComponent from "@/components/GameWiki/GameWiki";
+'use client';
+import { motion } from 'framer-motion';
+import GameWikiComponent from '@/components/GameWiki/GameWiki';
 const containerVariants = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -22,10 +22,10 @@ export default function WikiPage() {
         id="home"
         style={{
           backgroundImage: "url('/kingforge.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          height: "980px",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          height: '980px',
         }}
       >
         <motion.div

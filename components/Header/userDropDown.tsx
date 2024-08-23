@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Dropdown,
   DropdownTrigger,
@@ -6,10 +6,10 @@ import {
   DropdownItem,
   Avatar,
   User,
-} from "@nextui-org/react";
-import { UserAuth } from "@/config/AuthContext";
-import { showSuccessToast } from "../toast/CustomToast";
-import { useRouter } from "next/navigation";
+} from '@nextui-org/react';
+import { UserAuth } from '@/config/AuthContext';
+import { showSuccessToast } from '../toast/CustomToast';
+import { useRouter } from 'next/navigation';
 
 export default function UserDropDown() {
   const { user, logOut, currentuser, isGameOpen } = UserAuth();
@@ -25,8 +25,8 @@ export default function UserDropDown() {
 
   const TriggerLogout = async () => {
     logOut();
-    showSuccessToast("You are Logged out!");
-    router.push("/");
+    showSuccessToast('You are Logged out!');
+    router.push('/');
   };
 
   // Render loading state while data is loading
@@ -65,7 +65,7 @@ export default function UserDropDown() {
           </DropdownItem>
           <DropdownItem
             key="settings"
-            onClick={() => handleNavigation("/userSetting")}
+            onClick={() => handleNavigation('/userSetting')}
           >
             My Settings
           </DropdownItem>

@@ -1,3 +1,5 @@
+import React from 'react'; // Import React
+
 export default function DocsLayout({
   children,
 }: {

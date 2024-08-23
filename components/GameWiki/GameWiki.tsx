@@ -1,7 +1,7 @@
 // pages/GameWikiComponent.js
 
-import { Card } from "@nextui-org/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Card } from '@nextui-org/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlayCircle, // Icon for "How to Play"
   faBullseye, // Icon for "Goals"
@@ -9,38 +9,38 @@ import {
   faMap, // Icon for "Map" - represents the world or map
   faScroll, // Icon for "Lore" - represents lore or story
   faGem, // Icon for "Equipment" - represents items or equipment
-} from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
+} from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 
 const cards = [
   {
-    title: "How to Play",
-    description: "Learn the basics and get started with our game.",
+    title: 'How to Play',
+    description: 'Learn the basics and get started with our game.',
     icon: faPlayCircle,
   },
   {
-    title: "Goals",
-    description: "Understand the objectives and goals within the game.",
+    title: 'Goals',
+    description: 'Understand the objectives and goals within the game.',
     icon: faBullseye,
   },
   {
-    title: "Classes",
-    description: "Explore different character classes and their abilities.",
+    title: 'Classes',
+    description: 'Explore different character classes and their abilities.',
     icon: faUserShield,
   },
   {
-    title: "Map",
-    description: "Discover the vast world of our game and its regions.",
+    title: 'Map',
+    description: 'Discover the vast world of our game and its regions.',
     icon: faMap,
   },
   {
-    title: "Lore",
-    description: "Dive into the rich lore and story of our game.",
+    title: 'Lore',
+    description: 'Dive into the rich lore and story of our game.',
     icon: faScroll,
   },
   {
-    title: "Equipment",
-    description: "Find detailed information on items and equipment.",
+    title: 'Equipment',
+    description: 'Find detailed information on items and equipment.',
     icon: faGem,
   },
 ];
@@ -58,7 +58,7 @@ const GameWikiComponent = () => {
           >
             <Card
               className="relative bg-[#131D2E] p-6 flex flex-col justify-between items-center duration-500 hover:bg-[#182438] text-center"
-              style={{ height: "200px" }}
+              style={{ height: '200px' }}
             >
               <div className="flex flex-col items-center space-y-4">
                 <FontAwesomeIcon

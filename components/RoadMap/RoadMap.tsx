@@ -1,62 +1,62 @@
-import { useState, useRef, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
   faBug,
   faLevelUpAlt,
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 const roadmapData = [
   {
-    date: "2024-06-14",
-    title: "Version 1.0.0 Release",
-    description: "Initial release with basic features.",
-    image: "/images/release.jpg",
-    type: "release",
+    date: '2024-06-14',
+    title: 'Version 1.0.0 Release',
+    description: 'Initial release with basic features.',
+    image: '/images/release.jpg',
+    type: 'release',
   },
   {
-    date: "2024-06-18",
-    title: "Version 1.0.2 Update",
-    description: "Bug fixes and performance improvements.",
-    image: "/images/update.jpg",
-    type: "bugfix",
+    date: '2024-06-18',
+    title: 'Version 1.0.2 Update',
+    description: 'Bug fixes and performance improvements.',
+    image: '/images/update.jpg',
+    type: 'bugfix',
   },
   {
-    date: "2024-06-28",
-    title: "Version 1.1.0 New Features",
-    description: "Added new levels and challenges.",
-    image: "/images/new-features.jpg",
-    type: "newfeatures",
+    date: '2024-06-28',
+    title: 'Version 1.1.0 New Features',
+    description: 'Added new levels and challenges.',
+    image: '/images/new-features.jpg',
+    type: 'newfeatures',
   },
   {
-    date: "2024-07-18",
-    title: "Version 1.2.0 Expansion",
-    description: "Major expansion with new content.",
-    image: "/images/expansion.jpg",
-    type: "newfeatures",
+    date: '2024-07-18',
+    title: 'Version 1.2.0 Expansion',
+    description: 'Major expansion with new content.',
+    image: '/images/expansion.jpg',
+    type: 'newfeatures',
   },
   {
-    date: "2024-08-10",
-    title: "Version 1.3.0 Major Update",
-    description: "Significant update with new features and improvements.",
-    image: "/images/major-update.jpg",
-    type: "newfeatures",
+    date: '2024-08-10',
+    title: 'Version 1.3.0 Major Update',
+    description: 'Significant update with new features and improvements.',
+    image: '/images/major-update.jpg',
+    type: 'newfeatures',
   },
   {
-    date: "2024-08-10",
-    title: "Version 1.3.0 Major Update",
-    description: "Significant update with new features and improvements.",
-    image: "/images/major-update.jpg",
-    type: "newfeatures",
+    date: '2024-08-10',
+    title: 'Version 1.3.0 Major Update',
+    description: 'Significant update with new features and improvements.',
+    image: '/images/major-update.jpg',
+    type: 'newfeatures',
   },
   {
-    date: "2024-08-10",
-    title: "Version 1.3.0 Major Update",
-    description: "Significant update with new features and improvements.",
-    image: "/images/major-update.jpg",
-    type: "newfeatures",
+    date: '2024-08-10',
+    title: 'Version 1.3.0 Major Update',
+    description: 'Significant update with new features and improvements.',
+    image: '/images/major-update.jpg',
+    type: 'newfeatures',
   },
 ];
 
@@ -64,27 +64,27 @@ const RoadmapItem = ({ item, isCompleted }: any) => {
   let icon, iconColor;
 
   switch (item.type) {
-    case "release":
+    case 'release':
       icon = faStar;
-      iconColor = "text-yellow-400";
+      iconColor = 'text-yellow-400';
       break;
-    case "bugfix":
+    case 'bugfix':
       icon = faBug;
-      iconColor = "text-red-500";
+      iconColor = 'text-red-500';
       break;
-    case "newfeatures":
+    case 'newfeatures':
       icon = faLevelUpAlt;
-      iconColor = "text-green-400";
+      iconColor = 'text-green-400';
       break;
     default:
       icon = faStar;
-      iconColor = "text-yellow-400";
+      iconColor = 'text-yellow-400';
   }
 
   return (
     <div className="flex flex-col items-center text-center p-4">
       <div
-        className={`w-12 h-12 rounded-full flex items-center justify-center ${isCompleted ? "bg-blue-500" : "bg-gray-700"} border-4 border-white`}
+        className={`w-12 h-12 rounded-full flex items-center justify-center ${isCompleted ? 'bg-blue-500' : 'bg-gray-700'} border-4 border-white`}
       >
         <FontAwesomeIcon icon={icon} className={`text-2xl ${iconColor}`} />
       </div>
@@ -113,9 +113,9 @@ const Roadmap = () => {
     };
 
     updateItemWidth();
-    window.addEventListener("resize", updateItemWidth);
+    window.addEventListener('resize', updateItemWidth);
 
-    return () => window.removeEventListener("resize", updateItemWidth);
+    return () => window.removeEventListener('resize', updateItemWidth);
   }, [nodesVisible]);
 
   const scrollLeft = () => {
@@ -130,7 +130,7 @@ const Roadmap = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         left: scrollPosition * itemWidth,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   }, [scrollPosition, itemWidth]);

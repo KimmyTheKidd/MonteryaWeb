@@ -1,15 +1,15 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import menuData from "./menuData";
-import { UserAuth } from "@/config/AuthContext";
-import BugReportButton from "../BugReport/BugReport";
-import UserDropDown from "./userDropDown";
-import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import menuData from './menuData';
+import { UserAuth } from '@/config/AuthContext';
+import BugReportButton from '../BugReport/BugReport';
+import UserDropDown from './userDropDown';
+import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const { user, isGameOpen } = UserAuth();
@@ -46,7 +46,7 @@ const Header = () => {
         <div className="relative flex items-center justify-between mx-4 xl:mx-0">
           <div className="w-40 px-4 xl:mr-12">
             <Image
-              onClick={() => handleNavigation("/")}
+              onClick={() => handleNavigation('/')}
               src="/MonteryaNoicon.png"
               alt="logo"
               width={140}
@@ -71,12 +71,12 @@ const Header = () => {
             >
               <span
                 className={`block h-0.5 w-[30px] bg-white transition-all duration-300 ${
-                  navbarOpen ? "rotate-45" : ""
+                  navbarOpen ? 'rotate-45' : ''
                 }`}
               ></span>
               <span
                 className={`block h-0.5 w-[30px] bg-white transition-all duration-300 ${
-                  navbarOpen ? "-rotate-45" : ""
+                  navbarOpen ? '-rotate-45' : ''
                 }`}
               />
             </button>
@@ -85,8 +85,8 @@ const Header = () => {
               id="navbarCollapse"
               className={`navbar absolute right-0 z-30 w-[250px] rounded-lg bg-black px-6 py-4 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                 navbarOpen
-                  ? "visible top-full opacity-100"
-                  : "invisible top-[120%] opacity-0"
+                  ? 'visible top-full opacity-100'
+                  : 'invisible top-[120%] opacity-0'
               }`}
             >
               <ul className="block lg:flex lg:space-x-4">
@@ -97,8 +97,8 @@ const Header = () => {
                         onClick={() => handleNavigation(menuItem.path)}
                         className={`flex items-center px-4 py-2 text-base lg:mr-0 lg:inline-flex lg:px-6 lg:py-2 cursor-pointer ${
                           usePathName === menuItem.path
-                            ? "text-rose-600 font-bold"
-                            : "text-dark hover:text-white dark:text-white font-bold hover:bg-white/10 rounded transition-all"
+                            ? 'text-rose-600 font-bold'
+                            : 'text-dark hover:text-white dark:text-white font-bold hover:bg-white/10 rounded transition-all'
                         }`}
                       >
                         {menuItem.title}
@@ -123,7 +123,7 @@ const Header = () => {
                         </p>
                         <div
                           className={`submenu absolute left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100  lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
-                            openIndex === index ? "block" : "hidden"
+                            openIndex === index ? 'block' : 'hidden'
                           }`}
                         >
                           {menuItem.submenu.map(
@@ -137,7 +137,7 @@ const Header = () => {
                               >
                                 {submenuItem.title}
                               </a>
-                            ),
+                            )
                           )}
                         </div>
                       </>

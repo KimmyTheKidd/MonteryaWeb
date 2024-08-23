@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { fetchPatchNotes } from "./patch-server-action/patchNoteService";
-import PatchNote from "./Patches";
+import { useState, useEffect } from 'react';
+import { fetchPatchNotes } from './patch-server-action/patchNoteService';
+import PatchNote from './Patches';
 
 // Define the type for the patch note
 interface PatchNoteType {
@@ -28,7 +28,7 @@ const PatchNoteList = () => {
       }));
       setNotes(patchNotes);
     } catch (error) {
-      console.error("Error fetching patch notes:", error);
+      console.error('Error fetching patch notes:', error);
     }
   };
 

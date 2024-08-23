@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -10,29 +10,29 @@ import {
   Button,
   Input,
   Tooltip,
-} from "@nextui-org/react";
-import { EyeFilledIcon, EyeSlashFilledIcon } from "../icons";
-import OAuthForm from "./OAuthForm";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
-import { UserAuth } from "@/config/AuthContext";
-import { useRouter } from "next/navigation";
-import { signUpWithEmail } from "./auth-server-action/signup";
-import { showFailedToast, showSuccessToast } from "../toast/CustomToast";
+} from '@nextui-org/react';
+import { EyeFilledIcon, EyeSlashFilledIcon } from '../icons';
+import { showFailedToast, showSuccessToast } from '../toast/CustomToast';
+import OAuthForm from './OAuthForm';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { UserAuth } from '@/config/AuthContext';
+import { signUpWithEmail } from './auth-server-action/signup';
 
 const FormSchema = z
   .object({
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z.string().min(6, { message: "Password is too short" }),
+    email: z.string().email({ message: 'Invalid email address' }),
+    password: z.string().min(6, { message: 'Password is too short' }),
     confirmPassword: z
       .string()
-      .min(1, { message: "Password confirmation is required" }),
+      .min(1, { message: 'Password confirmation is required' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 const containerVariants = {
@@ -61,7 +61,7 @@ export default function SignUpCard() {
 
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push('/');
     }
   }, [user, router]);
 
@@ -72,9 +72,9 @@ export default function SignUpCard() {
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -89,11 +89,11 @@ export default function SignUpCard() {
         showFailedToast(error);
         return;
       } else {
-        showSuccessToast("Sign Up Successfully");
-        router.push("/");
+        showSuccessToast('Sign Up Successfully');
+        router.push('/');
       }
     } catch (error) {
-      showFailedToast("An error occurred");
+      showFailedToast('An error occurred');
       setIsSubmitting(false);
       return;
     }
@@ -142,7 +142,7 @@ export default function SignUpCard() {
             initial="hidden"
             animate="visible"
             onSubmit={handleSubmit(onSubmit)}
-            className={isFormDisable ? "pointer-events-none opacity-50" : ""}
+            className={isFormDisable ? 'pointer-events-none opacity-50' : ''}
           >
             <motion.div variants={itemVariants} className="mb-4">
               <Input
@@ -150,7 +150,7 @@ export default function SignUpCard() {
                 label="Email"
                 placeholder="Enter your Email"
                 fullWidth
-                {...register("email")}
+                {...register('email')}
                 disabled={isFormDisable}
               />
               {errors.email && (
@@ -164,7 +164,7 @@ export default function SignUpCard() {
                 placeholder="Enter your password"
                 type="password"
                 fullWidth
-                {...register("password")}
+                {...register('password')}
                 disabled={isFormDisable}
               />
               {errors.password && (
@@ -189,9 +189,9 @@ export default function SignUpCard() {
                     )}
                   </button>
                 }
-                type={isVisible ? "text" : "password"}
+                type={isVisible ? 'text' : 'password'}
                 fullWidth
-                {...register("confirmPassword")}
+                {...register('confirmPassword')}
                 disabled={isFormDisable}
               />
               {errors.confirmPassword && (
@@ -211,9 +211,9 @@ export default function SignUpCard() {
             <motion.div variants={itemVariants} className="mt-4">
               <Button
                 type="submit"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 className={`bg-black hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl ${
-                  isFormDisable ? "cursor-not-allowed" : "cursor-pointer"
+                  isFormDisable ? 'cursor-not-allowed' : 'cursor-pointer'
                 }`}
                 disabled={isSubmitting || isFormDisable}
                 isDisabled={isFormDisable}

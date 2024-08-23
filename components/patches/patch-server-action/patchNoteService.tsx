@@ -1,5 +1,5 @@
 // patchNoteService.ts
-import { db } from "@/config/firebase";
+import { db } from '@/config/firebase';
 import {
   collection,
   addDoc,
@@ -7,9 +7,9 @@ import {
   updateDoc,
   deleteDoc,
   doc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
-const patchNotesCollection = collection(db, "patchNotes");
+const patchNotesCollection = collection(db, 'patchNotes');
 
 export interface PatchNote {
   id?: string;
@@ -25,6 +25,6 @@ export interface PatchNote {
 export const fetchPatchNotes = async () => {
   const querySnapshot = await getDocs(patchNotesCollection);
   return querySnapshot.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() }) as PatchNote,
+    (doc) => ({ id: doc.id, ...doc.data() }) as PatchNote
   );
 };

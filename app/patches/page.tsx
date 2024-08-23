@@ -1,7 +1,7 @@
 // pages/about.js
-"use client";
-import { motion } from "framer-motion";
-import PatchNoteList from "@/components/patches/PatchNoteList";
+'use client';
+import { motion } from 'framer-motion';
+import PatchNoteList from '@/components/patches/PatchNoteList';
 
 const containerVariants = {
   hidden: { opacity: 1, scale: 0 },
@@ -23,10 +23,10 @@ export default function AboutPage() {
         className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col items-center"
         style={{
           backgroundImage: "url('/kingforge.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          height: "980px",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          height: '980px',
         }}
       >
         <motion.div

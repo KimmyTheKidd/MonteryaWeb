@@ -1,12 +1,13 @@
-import "@/styles/globals.css";
-import { Metadata } from "next";
-import clsx from "clsx";
-import { Providers } from "./providers";
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import Header from "@/components/Header";
-import { AuthContextProvider } from "../config/AuthContext";
-import { Toaster } from "react-hot-toast";
+import React from 'react'; // Import React
+import '@/styles/globals.css';
+import { Metadata } from 'next';
+import clsx from 'clsx';
+import { Providers } from './providers';
+import { siteConfig } from '@/config/site';
+import { fontSans } from '@/config/fonts';
+import Header from '@/components/Header';
+import { AuthContextProvider } from '../config/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/MT_icon.png",
+    icon: '/MT_icon.png',
   },
 };
 
@@ -29,8 +30,8 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable
         )}
       >
         <AuthContextProvider>

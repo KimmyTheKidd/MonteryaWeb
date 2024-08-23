@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug } from "@fortawesome/free-solid-svg-icons";
-import { Tooltip } from "@nextui-org/tooltip";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBug } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from '@nextui-org/tooltip';
 import {
   Modal,
   ModalContent,
@@ -13,21 +13,21 @@ import {
   SelectItem,
   Input,
   Textarea,
-} from "@nextui-org/react";
-import { animals } from "@/types/data";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import FileUpload from "./FileUpload";
-import { useState } from "react";
-import { showFailedToast, showSuccessToast } from "../toast/CustomToast";
-import { SendBugReport } from "./bug-server-action/ReportHandler";
-import { UserAuth } from "@/config/AuthContext";
+} from '@nextui-org/react';
+import { animals } from '@/types/data';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import FileUpload from './FileUpload';
+import { useState } from 'react';
+import { showFailedToast, showSuccessToast } from '../toast/CustomToast';
+import { SendBugReport } from './bug-server-action/ReportHandler';
+import { UserAuth } from '@/config/AuthContext';
 
 const FormSchema = z.object({
-  bugType: z.string().nonempty({ message: "Bug Type is required" }),
-  bugName: z.string().nonempty({ message: "Bug Name is required" }),
-  Description: z.string().nonempty({ message: "Bug Details are required" }),
+  bugType: z.string().nonempty({ message: 'Bug Type is required' }),
+  bugName: z.string().nonempty({ message: 'Bug Name is required' }),
+  Description: z.string().nonempty({ message: 'Bug Details are required' }),
   bugImage: z.string().optional(),
 });
 
@@ -45,10 +45,10 @@ const BugReportButton = () => {
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      bugType: "",
-      bugName: "",
-      Description: "",
-      bugImage: "",
+      bugType: '',
+      bugName: '',
+      Description: '',
+      bugImage: '',
     },
   });
 
@@ -61,17 +61,17 @@ const BugReportButton = () => {
       const result = await SendBugReport(data);
       const { status } = JSON.parse(result) as { status: number };
       if (status === 429) {
-        showFailedToast("Please wait before submitting another bug report");
+        showFailedToast('Please wait before submitting another bug report');
         return;
       }
       if (status !== 200) {
-        showFailedToast("Bug Report Failed to Send");
+        showFailedToast('Bug Report Failed to Send');
       } else {
-        showSuccessToast("Bug Reported Successfully");
+        showSuccessToast('Bug Reported Successfully');
       }
     } catch (error) {
-      console.error("Error submitting bug report:", error);
-      showFailedToast("An error occurred. Please try again later.");
+      console.error('Error submitting bug report:', error);
+      showFailedToast('An error occurred. Please try again later.');
     } finally {
       setSelectedFile(null); // Reset selected file
       onClose();
@@ -85,10 +85,10 @@ const BugReportButton = () => {
 
   const handleClose = () => {
     reset({
-      bugType: "",
-      bugName: "",
-      Description: "",
-      bugImage: "",
+      bugType: '',
+      bugName: '',
+      Description: '',
+      bugImage: '',
     });
     setSelectedFile(null);
     onClose();
@@ -124,11 +124,11 @@ const BugReportButton = () => {
           <ModalHeader className="text-lg font-bold">Bug Report</ModalHeader>
           <ModalBody>
             <Select
-              {...register("bugType")}
+              {...register('bugType')}
               label="Bug Type"
               placeholder="Select a bug type"
-              className={"max-w-md mb-4"}
-              color={errors.bugType ? "danger" : "default"}
+              className={'max-w-md mb-4'}
+              color={errors.bugType ? 'danger' : 'default'}
             >
               {animals.map((animal) => (
                 <SelectItem key={animal.key}>{animal.label}</SelectItem>
@@ -136,20 +136,20 @@ const BugReportButton = () => {
             </Select>
 
             <Input
-              {...register("bugName")}
+              {...register('bugName')}
               type="text"
               label="Bug Title"
               placeholder="Enter Bug Title"
-              className={"max-w-md mb-"}
-              color={errors.bugName ? "danger" : "default"}
+              className={'max-w-md mb-'}
+              color={errors.bugName ? 'danger' : 'default'}
             />
 
             <Textarea
-              {...register("Description")}
+              {...register('Description')}
               label="Description"
               placeholder="Enter bug description"
-              className={"max-w-md mb-4"}
-              color={errors.Description ? "danger" : "default"}
+              className={'max-w-md mb-4'}
+              color={errors.Description ? 'danger' : 'default'}
             />
 
             <FileUpload

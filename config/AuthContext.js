@@ -1,15 +1,15 @@
-"use client";
-import { useContext, createContext, useState, useEffect } from "react";
+'use client';
+import { useContext, createContext, useState, useEffect } from 'react';
 import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
-} from "@firebase/auth";
-import { auth } from "./firebase";
-import LoadingScreen from "../components/LoadingScene/LoadingScreen";
-import { fetchplayerInfo } from "@/components/authentication/auth-server-action/authorsie";
-import { signupWithOAuth } from "@/components/authentication/auth-server-action/signup";
+} from '@firebase/auth';
+import { auth } from './firebase';
+import LoadingScreen from '../components/LoadingScene/LoadingScreen';
+import { fetchplayerInfo } from '@/components/authentication/auth-server-action/authorsie';
+import { signupWithOAuth } from '@/components/authentication/auth-server-action/signup';
 
 // displayName
 // email
@@ -39,10 +39,10 @@ export const AuthContextProvider = ({ children }) => {
 
       if (!data || data.error) {
         console.error(
-          "No user data received or there was an error:",
-          data ? data.error : "Unknown error",
+          'No user data received or there was an error:',
+          data ? data.error : 'Unknown error'
         );
-        return { success: false, errorType: "NO_USER_DATA" };
+        return { success: false, errorType: 'NO_USER_DATA' };
       }
 
       // Check if the email domain is correct
@@ -57,8 +57,8 @@ export const AuthContextProvider = ({ children }) => {
 
       return { success: true };
     } catch (error) {
-      console.error("Error during Google sign-in:", error);
-      return { success: false, errorType: "SIGN_IN_ERROR" }; // Ensure the function returns error type if there's an error
+      console.error('Error during Google sign-in:', error);
+      return { success: false, errorType: 'SIGN_IN_ERROR' }; // Ensure the function returns error type if there's an error
     }
   };
 

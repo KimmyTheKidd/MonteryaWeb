@@ -1,28 +1,28 @@
-import { Menu } from "@/types/menu";
+import { Menu } from '@/types/menu';
 
 const menuData: Menu[] = [
   {
     id: 1,
-    title: "Home",
-    path: "/",
+    title: 'Home',
+    path: '/',
     newTab: false,
   },
   {
     id: 2,
-    title: "Patch Notes",
-    path: "/patches",
+    title: 'Patch Notes',
+    path: '/patches',
     newTab: false,
   },
   {
     id: 33,
-    title: "Road Map",
-    path: "/roadmap",
+    title: 'Road Map',
+    path: '/roadmap',
     newTab: false,
   },
   {
     id: 33,
-    title: "Game Wiki",
-    path: "/GameWiki",
+    title: 'Game Wiki',
+    path: '/GameWiki',
     newTab: false,
   },
   // {
