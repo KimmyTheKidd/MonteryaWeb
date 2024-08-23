@@ -5,32 +5,20 @@ import { UserAuth } from '@/config/AuthContext';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
   Tooltip,
-  useDisclosure,
 } from '@nextui-org/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-  faInfoCircle,
-  faQuestionCircle,
   faRotateRight,
 } from '@fortawesome/free-solid-svg-icons';
-
-import { Tutorial_Pages } from '@/types/data';
 
 const unityContextLocation = 'Unity-WebGl-Build/Build';
 
 export default function Game() {
   const { user, currentuser, SetGameState } = UserAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [page, setPage] = useState(0);
-  const currentPage = Tutorial_Pages[page];
+
 
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const {
@@ -169,17 +157,17 @@ export default function Game() {
     }
   };
 
-  const handleNext = () => {
-    if (page < Tutorial_Pages.length - 1) {
-      setPage(page + 1);
-    }
-  };
+  // const handleNext = () => {
+  //   if (page < Tutorial_Pages.length - 1) {
+  //     setPage(page + 1);
+  //   }
+  // };
 
-  const handlePrevious = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    }
-  };
+  // const handlePrevious = () => {
+  //   if (page > 0) {
+  //     setPage(page - 1);
+  //   }
+  // };
 
   return (
     <section

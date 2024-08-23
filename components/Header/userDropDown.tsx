@@ -45,7 +45,7 @@ export default function UserDropDown() {
 
   return (
     <div className="flex items-center gap-4 ">
-      <Dropdown placement="bottom-start ">
+      <Dropdown placement="bottom-start">
         <DropdownTrigger>
           <User
             as="button"
