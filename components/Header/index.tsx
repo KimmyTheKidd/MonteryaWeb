@@ -30,8 +30,8 @@ const Header = () => {
     }
   };
 
-  const handleNavigation = (path: any) => {
-    if (isGameOpen) {
+  const handleNavigation = (path: string) => {
+    if (typeof window !== 'undefined' && isGameOpen) {
       window.location.href = path;
     } else {
       router.push(path);
@@ -94,7 +94,7 @@ const Header = () => {
                   <li key={index} className="group relative">
                     {menuItem.path ? (
                       <a
-                        onClick={() => handleNavigation(menuItem.path)}
+                        href={menuItem.path}
                         className={`flex items-center px-4 py-2 text-base lg:mr-0 lg:inline-flex lg:px-6 lg:py-2 cursor-pointer ${
                           usePathName === menuItem.path
                             ? 'text-rose-600 font-bold'
@@ -105,9 +105,11 @@ const Header = () => {
                       </a>
                     ) : (
                       <>
-                        <p
+                        <button
                           onClick={() => handleSubmenu(index)}
-                          className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                          className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 bg-transparent border-none"
+                          aria-expanded={openIndex === index}
+                          aria-haspopup="true"
                         >
                           {menuItem.title}
                           <span className="pl-3">
@@ -120,20 +122,18 @@ const Header = () => {
                               />
                             </svg>
                           </span>
-                        </p>
+                        </button>
                         <div
-                          className={`submenu absolute left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100  lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
+                          className={`submenu absolute left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100 lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
                             openIndex === index ? 'block' : 'hidden'
                           }`}
                         >
                           {menuItem.submenu.map(
                             (submenuItem: any, subIndex: any) => (
                               <a
-                                onClick={() =>
-                                  handleNavigation(submenuItem.path)
-                                }
+                                href={submenuItem.path}
                                 key={subIndex}
-                                className="block rounded py-2.5 text-sm text-dark hover:bg-gray-200  lg:px-3 cursor-pointer"
+                                className="block rounded py-2.5 text-sm text-dark hover:bg-gray-200 lg:px-3 cursor-pointer"
                               >
                                 {submenuItem.title}
                               </a>

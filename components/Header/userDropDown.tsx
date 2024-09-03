@@ -35,15 +35,16 @@ export default function UserDropDown() {
   }
 
   const handleNavigation = async (path: string) => {
-    if (isGameOpen) {
+    if (typeof window !== 'undefined' && isGameOpen) {
       window.location.href = path;
     } else {
       router.push(path);
     }
   };
+  
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 ">
       <Dropdown placement="bottom-start">
         <DropdownTrigger>
           <User
@@ -58,7 +59,7 @@ export default function UserDropDown() {
             }
           />
         </DropdownTrigger>
-        <DropdownMenu aria-label="User Actions" variant="flat">
+        <DropdownMenu aria-label="User Actions" variant="flat" className='text-black'>
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
             <p className="font-bold">{user.email}</p>
