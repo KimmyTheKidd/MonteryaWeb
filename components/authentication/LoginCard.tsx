@@ -20,6 +20,7 @@ import { UserAuth } from '@/config/AuthContext';
 import { useRouter } from 'next/navigation';
 import { showFailedToast, showSuccessToast } from '../toast/CustomToast';
 import { signInWithEmail } from './auth-server-action/signup';
+import Link from 'next/link';
 
 const containerVariants = {
   hidden: { opacity: 1, scale: 0 },
@@ -103,8 +104,8 @@ export default function LoginCard() {
             className="rounded-sm"
           />
           <div className="ml-4">
-            <p className="text-3xl font-semibold">Login</p>
-            <p className="text-sm text-gray-200">Access your account</p>
+            <p className="text-3xl font-semibold text-zinc-900">Login</p>
+            <p className="text-sm text-zinc-900">Access your account</p>
           </div>
         </CardHeader>
         <Divider />
@@ -147,8 +148,8 @@ export default function LoginCard() {
                 <p className="text-red-600">{errors.password.message}</p>
               )}
             </motion.div>
-            <motion.div variants={itemVariants} className="flex justify-end">
-              <p className="text-sm text-gray-200 cursor-pointer hover:underline">
+            <motion.div variants={itemVariants} className="flex justify-end ">
+              <p className="text-sm text-zinc-900 cursor-pointer hover:underline">
                 Forgot Password?
               </p>
             </motion.div>
@@ -156,9 +157,11 @@ export default function LoginCard() {
               variants={itemVariants}
               className="flex justify-end mt-2" // Adjusted margin to ensure proper spacing
             >
-              <p className="text-sm text-gray-200 cursor-pointer hover:underline">
-                Don&apos;t have an account? Sign up
-              </p>
+              <p className="text-sm text-zinc-900 cursor-pointer hover:underline">
+  <Link href="/signup">
+    Don&apos;t have an account? Sign up
+  </Link>
+</p>
             </motion.div>
           </form>
         </CardBody>

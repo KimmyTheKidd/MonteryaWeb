@@ -116,11 +116,12 @@ export default function SignUpCard() {
             className="rounded-sm"
           />
           <div className="ml-4 flex-1">
-            <p className="text-3xl font-semibold">SignUp</p>
-            <p className="text-sm text-gray-200">Create your account</p>
+            <p className="text-3xl font-semibold  text-zinc-900">SignUp</p>
+            <p className="text-sm  text-zinc-900">Create your account</p>
           </div>
+          
 
-          <Tooltip
+          {/* <Tooltip
             content={
               <div className="px-1 py-2">
                 <div className="text-small font-bold">Internal Testing</div>
@@ -132,8 +133,9 @@ export default function SignUpCard() {
             }
           >
             <Button color="danger">Alert!</Button>
-          </Tooltip>
+          </Tooltip> */}
         </CardHeader>
+            
 
         <Divider />
         <CardBody className="flex flex-col px-10 py-8">

@@ -57,7 +57,7 @@ const GameWikiComponent = () => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card
-              className="relative text-black p-6 flex flex-col justify-between items-center duration-500 hover:bg-[#182438] text-center"
+              className="relative text-black p-6 flex flex-col justify-between items-center duration-500 hover:bg-blue-400 text-center"
               style={{ height: '200px' }}
             >
               <div className="flex flex-col items-center space-y-4">
