@@ -14,7 +14,7 @@ import {
   Input,
   Textarea,
 } from '@nextui-org/react';
-import { animals } from '@/types/data';
+import { BugTypes } from '@/types/data';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -130,8 +130,8 @@ const BugReportButton = () => {
               className={'max-w-md mb-4'}
               color={errors.bugType ? 'danger' : 'default'}
             >
-              {animals.map((animal) => (
-                <SelectItem key={animal.key}>{animal.label}</SelectItem>
+              {BugTypes.map((type) => (
+                <SelectItem key={type.key} className='text-black'>{type.label}</SelectItem>
               ))}
             </Select>
 

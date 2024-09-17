@@ -12,7 +12,7 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 interface BugData {
@@ -39,16 +39,16 @@ export interface BugReportData {
 
 export async function SendBugReport(data: BugReportData): Promise<string> {
   try {
-    // Check if user exists
+    // Check if the user exists
     const userDocRef = doc(db, 'users', data.userId);
     const userDoc = await getDoc(userDocRef);
-    console.log(data);
+
     if (!userDoc.exists()) {
       console.error('User does not exist');
       return JSON.stringify({ status: 404, message: 'User not found' });
     }
 
-    // Check the time since the last report
+    // Check the time since the last bug report from this user
     const lastReportQuery = collection(db, 'bugReport');
     const q = query(
       lastReportQuery,
@@ -56,8 +56,6 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
       orderBy('timeCreated', 'desc'),
       limit(1)
     );
-
-    console.log(q);
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
@@ -65,20 +63,21 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
       const lastReportTime = lastReport.timeCreated.toDate();
       const now = new Date();
 
-      // Calculate time difference
       const timeDiff = now.getTime() - lastReportTime.getTime();
       const fiveMinutesInMillis = 5 * 60 * 1000;
 
-      // Check if 5 minutes have passed
       if (timeDiff < fiveMinutesInMillis) {
         return JSON.stringify({
           status: 429,
-          message: 'Please wait before submitting another bug report.',
+          message: 'Please wait 5 minutes before submitting another bug report.',
         });
       }
     }
 
+    // Generate a unique BugID
     const BugID = uuidv4();
+
+    // Prepare bug report data
     const bugData: BugData = {
       userId: data.submitId,
       bugType: data.bugType,
@@ -87,30 +86,54 @@ export async function SendBugReport(data: BugReportData): Promise<string> {
       timeCreated: serverTimestamp(),
       BugId: BugID,
       resolve: false,
-      // ...(data.customBugType && { customBugType: data.customBugType }),
     };
 
+    // If a bug image is provided, upload the image
     if (data.bugImage) {
-      const imageRef = ref(
-        storage,
-        `BugReports/${data.bugImage.name + uuidv4()}`
-      );
-      const uploadResult = await uploadBytes(imageRef, data.bugImage);
-      console.log('Image uploaded successfully');
-
-      const url = await getDownloadURL(uploadResult.ref);
-      bugData.bugImage = url;
+      try {
+        const fileExtension = data.bugImage.name.split('.').pop(); // Extract file extension
+        const imageRef = ref(
+          getStorage(),
+          `BugReports/${BugID}.${fileExtension}`
+        );
+        
+        const uploadResult = await uploadBytes(imageRef, data.bugImage);
+        console.log('Image uploaded successfully');
+        
+        // Get the image's download URL
+        const url = await getDownloadURL(uploadResult.ref);
+        bugData.bugImage = url; // Add image URL to bugData
+      } catch (uploadError) {
+        console.error('Error uploading bug image:', uploadError);
+        return JSON.stringify({
+          status: 500,
+          message: 'Image upload failed',
+        });
+      }
     }
-    // Save bugData to Firestore
-    await setDoc(doc(collection(db, 'bugReport')), bugData);
+
+    // Save bugData to Firestore using the BugID as the document ID
+    await setDoc(doc(db, 'bugReport', BugID), bugData);
     console.log('Bug report saved successfully');
 
-    return JSON.stringify({ status: 200 });
+    return JSON.stringify({ status: 200, message: 'Bug report submitted successfully.' });
   } catch (error) {
     console.error('Error sending bug report:', error);
+  
+    // Default error message
+    let errorMessage = "Failed to do something exceptional";
+  
+    // Check if the error is an instance of the Error object
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+  
+    console.log(errorMessage);
+  
+    // Return the error response with the error message
     return JSON.stringify({
       status: 500,
-      message: error || 'An unexpected error occurred',
+      message: errorMessage || 'An unexpected error occurred',
     });
   }
 }

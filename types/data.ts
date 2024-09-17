@@ -1,5 +1,5 @@
 import React from 'react';
-export const animals = [
+export const BugTypes = [
   { key: 'mapCollision', label: 'Map Collision' },
   { key: 'npc', label: 'NPC' },
   { key: 'Inventory', label: 'Inventory' },
