@@ -29,11 +29,6 @@ export default function UserDropDown() {
     router.push('/');
   };
 
-  // Render loading state while data is loading
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   const handleNavigation = async (path: string) => {
     if (typeof window !== 'undefined' && isGameOpen) {
       window.location.href = path;
@@ -41,10 +36,24 @@ export default function UserDropDown() {
       router.push(path);
     }
   };
-  
+
+  if (isLoading) {
+    // Skeleton Loader
+    return (
+      <div className="flex items-center gap-4">
+        <div className="animate-pulse flex items-center gap-2">
+          <div className="h-10 w-10 rounded-full bg-gray-300"></div>
+          <div className="flex flex-col gap-2">
+            <div className="h-4 w-24 rounded bg-gray-300"></div>
+            <div className="h-4 w-16 rounded bg-gray-300"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex items-center gap-4 ">
+    <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
         <DropdownTrigger>
           <User
@@ -53,25 +62,37 @@ export default function UserDropDown() {
               isBordered: true,
               src: user.photoURL ? user.photoURL : null,
             }}
-            className="transition-transform"
+            className="transition-transform text-slate-900"
             name={
               currentuser.username ? currentuser.username : currentuser.email
             }
           />
         </DropdownTrigger>
-        <DropdownMenu aria-label="User Actions" variant="flat" className='text-black'>
+        <DropdownMenu
+          aria-label="User Actions"
+          variant="flat"
+          className="text-black"
+        >
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
-            <p className="font-bold">{user.email}</p>
+            <p className="font-bold text-black">{user.email}</p>
           </DropdownItem>
           <DropdownItem
             key="settings"
             onClick={() => handleNavigation('/userSetting')}
+            className="text-black"
           >
             My Settings
           </DropdownItem>
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-          <DropdownItem key="logout" color="danger" onClick={TriggerLogout}>
+          <DropdownItem key="help_and_feedback" className="text-black">
+            Help & Feedback
+          </DropdownItem>
+          <DropdownItem
+            key="logout"
+            color="danger"
+            onClick={TriggerLogout}
+            className="text-black"
+          >
             Log Out
           </DropdownItem>
         </DropdownMenu>

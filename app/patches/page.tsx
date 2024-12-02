@@ -34,14 +34,7 @@ export default function AboutPage() {
           animate="visible"
           variants={containerVariants}
         >
-          <motion.h1
-            className="text-4xl font-bold text-black mb-8 p-6 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Monterya Patch Notes
-          </motion.h1>
+
         </motion.div>
 
         <div className="overflow-y-auto max-h-[80vh] w-full">

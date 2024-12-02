@@ -68,7 +68,7 @@ interface OAuthUser {
 
 export async function signupWithOAuth(user: OAuthUser) {
   try {
-    console.log(user.uid);
+    // console.log(user.uid);
     const docRef = doc(db, 'users', user.uid);
     const docSnap = await getDoc(docRef);
 

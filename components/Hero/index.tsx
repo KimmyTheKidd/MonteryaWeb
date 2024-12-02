@@ -1,63 +1,57 @@
 'use client';
-import { motion } from 'framer-motion'; // Import Framer Motion
+import { motion } from 'framer-motion';
+import { FaPlay } from 'react-icons/fa';
 
-const containerVariants = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.4,
-      staggerChildren: 0.5,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1 },
-};
-
-export default function Hero() {
+export default function RoadMapPage() {
   return (
     <section
-      id="home"
-      className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex justify-center items-center"
+      id="roadmap"
+      className="dark:bg-gray-dark relative z-10 overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] bg-cover bg-center flex flex-col justify-center items-center text-center"
       style={{
         backgroundImage: "url('/rabbit_nobg.png')",
-        backgroundSize: 'cover', // Adjust this property
-        backgroundRepeat: 'no-repeat', // Ensure image is not repeated
-        backgroundPosition: 'center center', // Center the image
-        height: '1000px', // Set a specific height if needed
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        height: '1000px',
       }}
     >
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="flex justify-center items-center min-h-screen"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="max-w-4xl"
       >
-        <div className="container relative z-20 text-center max-w-[800px]">
-          <div className="-mx-4 flex flex-wrap">
-            <div className="w-full px-4">
-              <div
-                className="wow fadeInUp mx-auto text-center"
-                data-wow-delay=".2s"
-              >
-                <motion.div variants={itemVariants} className="mt-2 mb-4">
-                  <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-8xl md:leading-tight">
-                    Welcome to Monterya
-                  </h1>
-                </motion.div>
-                <p className="text-white mb-12 text-base leading-relaxed sm:text-lg md:text-2xl">
-                  Join us for the adventure that is coming this year - The
-                  Monterya Official 2024!
-                </p>
-                {/* Action buttons or additional content here */}
-              </div>
-            </div>
-          </div>
-        </div>
+        <h1
+          className="text-5xl font-bold text-white md:text-7xl"
+          style={{
+            textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
+          }}
+        >
+          Embark on the Ultimate Adventure In{' '}
+          <span className="text-blue-700">Monterya</span>!
+        </h1>
+
+        <p
+          className="mt-6 text-xl text-white md:text-2xl"
+          style={{
+            textShadow: '1px 1px 6px rgba(0, 0, 0, 0.7)',
+          }}
+        >
+          Explore a breathtaking open world, collect rare Veras, and earn
+          rewards from our $50M treasure vault. The journey of discovery and
+          fortune awaits—are you ready to take the leap?
+        </p>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-10 rounded-full bg-blue-600 px-8 py-4 text-2xl font-semibold text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <FaPlay className="inline-block mr-3" />
+          Play Now
+        </motion.button>
       </motion.div>
     </section>
   );

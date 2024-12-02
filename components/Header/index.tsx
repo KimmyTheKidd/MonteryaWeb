@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import menuData from './menuData';
 import { UserAuth } from '@/config/AuthContext';
 import BugReportButton from '../BugReport/BugReport';
@@ -22,12 +22,8 @@ const Header = () => {
     setNavbarOpen(!navbarOpen);
   };
 
-  const handleSubmenu = (index: any) => {
-    if (openIndex === index) {
-      setOpenIndex(-1);
-    } else {
-      setOpenIndex(index);
-    }
+  const handleSubmenu = (index: number) => {
+    setOpenIndex(openIndex === index ? -1 : index);
   };
 
   const handleNavigation = (path: string) => {
@@ -40,74 +36,72 @@ const Header = () => {
 
   return (
     <header
-      className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-black bg-opacity-40 py-6 lg:py-4 shadow-sticky backdrop-blur-sm transition rounded-xl mt-10`}
+      className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-white bg-opacity-60 py-4 shadow-sticky backdrop-blur-sm transition rounded-full mt-8`}
     >
-      <div className="container">
-        <div className="relative flex items-center justify-between mx-4 xl:mx-0">
-          <div className="w-40 px-4 xl:mr-12">
-            <Image
-              onClick={() => handleNavigation('/')}
-              src="/MonteryaNoicon.png"
-              alt="logo"
-              width={140}
-              height={30}
-              className="w-full dark:hidden hover:cursor-pointer"
-            />
-            <Image
-              src="/MonteryaNoicon.png"
-              alt="logo"
-              width={140}
-              height={30}
-              className="hidden w-full dark:block"
-            />
-          </div>
-          <div className="flex w-full items-center justify-between">
-            {/* For the X when miniize */}
+      <div className="container px-6 lg:px-12">
+        <div className="relative flex items-center justify-between">
+          {/* Logo Section */}
+          <div className="w-36 flex-shrink-0">
+  <Image
+    onClick={() => handleNavigation('/')}
+    src="/MonteryaNoicon.png"
+    alt="logo"
+    width={140}
+    height={30}
+    className="w-full cursor-pointer transition-transform active:scale-95"
+  />
+</div>
+
+
+          {/* Add spacing between logo and menu */}
+          <div className="flex items-center justify-between w-full ml-8 lg:ml-12">
+            {/* Mobile Menu Toggle */}
             <button
               onClick={navbarToggleHandler}
               id="navbarToggler"
               aria-label="Mobile Menu"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 block rounded-lg px-3 py-2 lg:hidden"
+              className="block rounded-lg px-3 py-2 lg:hidden"
             >
               <span
-                className={`block h-0.5 w-[30px] bg-white transition-all duration-300 ${
+                className={`block h-0.5 w-[30px] bg-black transition-all duration-300 ${
                   navbarOpen ? 'rotate-45' : ''
                 }`}
               ></span>
               <span
-                className={`block h-0.5 w-[30px] bg-white transition-all duration-300 ${
+                className={`block h-0.5 w-[30px] bg-black transition-all duration-300 ${
                   navbarOpen ? '-rotate-45' : ''
                 }`}
               />
             </button>
 
+            {/* Navigation Menu */}
             <nav
               id="navbarCollapse"
-              className={`navbar absolute right-0 z-30 w-[250px] rounded-lg bg-black px-6 py-4 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+              className={`absolute right-0 z-30 w-[250px] rounded-lg bg-white px-6 py-4 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                 navbarOpen
                   ? 'visible top-full opacity-100'
                   : 'invisible top-[120%] opacity-0'
               }`}
             >
-              <ul className="block lg:flex lg:space-x-4">
-                {menuData.map((menuItem: any, index: any) => (
-                  <li key={index} className="group relative">
+              <ul className="block lg:flex lg:space-x-6">
+                {menuData.map((menuItem: any, index: number) => (
+                  <li key={index} className="relative group">
                     {menuItem.path ? (
-                      <a
-                        href={menuItem.path}
-                        className={`flex items-center px-4 py-2 text-base lg:mr-0 lg:inline-flex lg:px-6 lg:py-2 cursor-pointer ${
-                          usePathName === menuItem.path
-                            ? 'text-rose-600 font-bold'
-                            : 'text-dark hover:text-white dark:text-white font-bold hover:bg-white/10 rounded transition-all'
-                        }`}
-                      >
-                        {menuItem.title}
-                      </a>
+                      <Link
+                      href={menuItem.path}
+                      className={`flex items-center px-4 py-2 text-base lg:inline-flex lg:px-6 cursor-pointer ${
+                        usePathName === menuItem.path
+                          ? 'text-blue-600 font-bold bg-blue-100 rounded-lg shadow-md transition-all'
+                          : 'text-slate-900 hover:text-blue-500 dark:text-white font-bold hover:bg-white/10 rounded-lg transition-all active:scale-95 active:bg-blue-200 active:text-blue-700'
+                      }`}
+                    >
+                      {menuItem.title}
+                    </Link>
                     ) : (
                       <>
                         <button
                           onClick={() => handleSubmenu(index)}
-                          className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 bg-transparent border-none"
+                          className="flex cursor-pointer items-center py-2 text-base text-dark lg:py-4"
                           aria-expanded={openIndex === index}
                           aria-haspopup="true"
                         >
@@ -124,19 +118,19 @@ const Header = () => {
                           </span>
                         </button>
                         <div
-                          className={`submenu absolute left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100 lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
+                          className={`absolute left-0 top-full w-[200px] bg-white rounded-lg shadow-md transition-transform duration-300 ${
                             openIndex === index ? 'block' : 'hidden'
                           }`}
                         >
                           {menuItem.submenu.map(
-                            (submenuItem: any, subIndex: any) => (
-                              <a
+                            (submenuItem: any, subIndex: number) => (
+                              <Link
                                 href={submenuItem.path}
                                 key={subIndex}
-                                className="block rounded py-2.5 text-sm text-dark hover:bg-gray-200 lg:px-3 cursor-pointer"
+                                className="block px-4 py-2 text-sm text-dark hover:bg-gray-200"
                               >
                                 {submenuItem.title}
-                              </a>
+                              </Link>
                             )
                           )}
                         </div>
@@ -146,32 +140,33 @@ const Header = () => {
                 ))}
               </ul>
             </nav>
-            <div className="flex items-center justify-end pr-16 lg:pr-8">
+
+            {/* User Actions and Buttons */}
+            <div className="flex items-center space-x-4">
               {user ? (
-                <div className="flex space-x-6">
+                <>
                   <UserDropDown />
                   <BugReportButton />
-                </div>
+                </>
               ) : (
                 <>
                   <Link
                     href="/signup"
-                    className={`px-6 py-2 text-base font-medium text-dark hover:bg-white/10 md:block cursor-pointer rounded transition-all`}
+                    className="px-4 py-2 text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
                   >
                     Sign Up
                   </Link>
                   <Link
                     href="/login"
-                    className={`px-6 py-2 text-base font-medium text-dark hover:bg-white/10 md:block cursor-pointer rounded transition-all`}
+                    className="px-4 py-2 text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
                   >
                     Login
                   </Link>
                 </>
               )}
-
               <Link
                 href="/gameEngine"
-                className="hidden ml-4 mr-4 rounded-lg bg-blue-600 hover:bg-blue-500 px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:flex md:items-center md:justify-center md:px-9 lg:px-6 xl:px-9 cursor-pointer"
+                className="rounded-full bg-blue-700 hover:bg-blue-600 px-6 py-2 text-base font-medium text-white shadow-lg transition duration-300"
               >
                 <span className="mr-2">Start Playing</span>
                 <FontAwesomeIcon icon={faCircleChevronRight} />

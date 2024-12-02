@@ -11,14 +11,6 @@ import LoadingScreen from '../components/LoadingScene/LoadingScreen';
 import { fetchplayerInfo } from '@/components/authentication/auth-server-action/authorsie';
 import { signupWithOAuth } from '@/components/authentication/auth-server-action/signup';
 
-// displayName
-// email
-// emailVerified
-// timeCreated
-// userId
-// username
-// usertype
-
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -36,7 +28,6 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     try {
       const data = await signInWithPopup(auth, provider);
-
       if (!data || data.error) {
         console.error(
           'No user data received or there was an error:',
@@ -44,20 +35,12 @@ export const AuthContextProvider = ({ children }) => {
         );
         return { success: false, errorType: 'NO_USER_DATA' };
       }
-
-      // Check if the email domain is correct
-      const email = data.user.email;
-      // if (!email.endsWith('@woxacorp.com')) {
-      //   console.error('You must use a woxacorp.com email address.');
-      //   await signOut(auth);
-      //   return { success: false, errorType: 'INVALID_EMAIL_DOMAIN' };
-      // }
-
       await signupWithOAuth(data.user);
 
       return { success: true };
     } catch (error) {
       console.error('Error during Google sign-in:', error);
+      await signOut(auth);
       return { success: false, errorType: 'SIGN_IN_ERROR' }; // Ensure the function returns error type if there's an error
     }
   };
