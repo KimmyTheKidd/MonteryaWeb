@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { fetchPatchNotes, PatchNote } from './patch-server-action/patchNoteService';
 
 const PatchNoteList = () => {
@@ -37,27 +38,55 @@ const PatchNoteList = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isLoading, hasMore]);
 
+  // Variants for page and card animations
+  const pageVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
+
   return (
     <div className="max-w-[90%] mx-auto p-6">
-      <header className="text-center mb-12">
-        <h1  className="text-5xl font-bold text-blue-600 md:text-7xl"
+      <motion.header
+        className="text-center mb-12"
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants} // Animate header when the page loads
+      >
+        <h1
+          className="text-5xl font-bold text-blue-600 md:text-7xl"
           style={{
             textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
-          }}>
+          }}
+        >
           Patch Notes
         </h1>
-        <p className="mt-6 text-xl text-white md:text-2xl"
+        <p
+          className="mt-6 text-xl text-white md:text-2xl"
           style={{
             textShadow: '1px 1px 6px rgba(0, 0, 0, 0.7)',
-          }}>
+          }}
+        >
           Stay updated with the latest improvements, fixes, and new features in our software.
         </p>
-      </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      </motion.header>
+
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants} // Animate the grid as the page loads
+      >
         {notes.map((note) => (
-          <div
+          <motion.div
             key={note.id}
             className="p-6 rounded-lg bg-gradient-to-r from-blue-50 via-white to-blue-50 shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+            variants={cardVariants} // Add animation for each card when revealed
+            whileHover={{ scale: 1.05 }} // Hover effect
           >
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               Version {note.version}
@@ -101,14 +130,16 @@ const PatchNoteList = () => {
                 <p className="text-gray-400 text-sm">None</p>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
+
       {isLoading && (
         <div className="text-center mt-12">
           <p className="text-gray-500 animate-pulse">Loading more patch notes...</p>
         </div>
       )}
+
       {!hasMore && !isLoading && (
         <div className="text-center mt-12">
           <p className="text-gray-500">No more patch notes to load.</p>

@@ -31,13 +31,13 @@ const RoadMapPage = () => {
         }}
       >
         <motion.div
-          className="text-center text-white"
+          className="text-center text-blue-700"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.h1
-            className="text-5xl font-bold text-white md:text-7xl"
+            className="text-5xl font-bold  text-blue-700 md:text-7xl"
             style={{
               textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
             }}

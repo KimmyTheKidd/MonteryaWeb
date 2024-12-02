@@ -1,11 +1,12 @@
 'use client';
 import { motion, useInView } from 'framer-motion';
 import { FaMapSigns, FaRegLightbulb, FaGamepad, FaPaintBrush } from 'react-icons/fa';
-import { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Mock roadmap data
 const featuresData = [
   {
+    id: 'july',
     month: 'July',
     explanation: 'In July, we focus on introducing a new map for players to explore, with exciting new challenges and features. The map will be expansive and filled with various types of terrain, offering fresh experiences for players.',
     updates: [
@@ -14,6 +15,7 @@ const featuresData = [
     ],
   },
   {
+    id: 'august',
     month: 'August',
     explanation: 'August brings a set of improvements aimed at enhancing gameplay experience, including a major quality-of-life update. We’re also adding new mechanics that will help players enjoy the game more intuitively.',
     updates: [
@@ -22,6 +24,7 @@ const featuresData = [
     ],
   },
   {
+    id: 'september',
     month: 'September',
     explanation: 'In September, we plan to introduce mini-games and additional content to keep players entertained. Players can expect challenges, rewards, and fun gameplay in these new mini-games.',
     updates: [
@@ -30,6 +33,7 @@ const featuresData = [
     ],
   },
   {
+    id: 'october',
     month: 'October',
     explanation: 'October will see further enhancements, including new seasonal events and player customization options. Expect Halloween-themed content, special rewards, and new customization tools for personalizing characters.',
     updates: [
@@ -48,6 +52,7 @@ const Roadmap = () => {
   return (
     <section id="roadmap" className="py-16 px-4">
       <div className="container mx-auto text-center">
+        {/* Heading */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -59,14 +64,15 @@ const Roadmap = () => {
         </motion.div>
 
         {/* Roadmap Cards */}
-        <div className="flex space-x-8 justify-center">
-          {featuresData.map((feature, index) => {
+        <div className="flex space-x-8 justify-center mt-8">
+          {featuresData.map((feature) => {
+            // Use InView hook for visibility
             const ref = useRef(null);
             const isInView = useInView(ref, { amount: 0.3 });
 
             return (
               <motion.div
-                key={index}
+                key={feature.id}
                 ref={ref}
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}
