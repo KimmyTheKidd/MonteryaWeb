@@ -25,6 +25,12 @@ const menuData: Menu[] = [
     path: '/GameWiki',
     newTab: false,
   },
+  {
+    id: 33,
+    title: 'Mini Mon',
+    path: '/minimon',
+    newTab: false,
+  },
   // {
   //   id: 3,
   //   title: "Support",

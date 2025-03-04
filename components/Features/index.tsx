@@ -1,43 +1,30 @@
 'use client';
-import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion'; // Correct import
+import { useRef, useEffect } from 'react';
 import SectionTitle from '../Common/SectionTitle';
 import SingleFeature from './SingleFeature';
 import featuresData from './featuresData';
 
 const Features = () => {
-  const [refMapping, setRefMapping] = useState<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
-  const [inViewStates, setInViewStates] = useState<{ [key: string]: boolean }>({});
+  const sectionRef = useRef(null); // Ref for the whole section
+  const isInView = useInView(sectionRef, { once: true }); // Trigger only once when in view
 
+  useEffect(() => {
+    console.log("Section is in view: ", isInView);
+  }, [isInView]);
+
+  // Function to get item variants for the animation
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  useEffect(() => {
-    // Create refs for each feature dynamically
-    const newRefMapping = featuresData.reduce((prevVal, curVal) => {
-      return { ...prevVal, [curVal.id]: React.createRef<HTMLDivElement>() };
-    }, {});
-    setRefMapping(newRefMapping);
-  }, [featuresData]);
-
-  useEffect(() => {
-    // Check visibility for each ref using useInView
-    const visibilityStates = Object.entries(refMapping).reduce((prevVal, [key, ref]) => {
-      const isVisible = ref.current ? useInView(ref, { amount: 0.3 }) : false;
-      return { ...prevVal, [key]: isVisible };
-    }, {});
-    setInViewStates(visibilityStates);
-  }, [refMapping]);
-
   return (
-    <section id="features" className="py-16 md:py-20 lg:py-28 bg-white">
+    <section id="features" className="py-16 md:py-20 lg:py-28 bg-white" ref={sectionRef}>
       <div className="container mx-auto text-black text-center">
         <motion.div
           initial="hidden"
-          animate="visible"
+          animate={isInView ? 'visible' : 'hidden'}
           variants={{
             hidden: { opacity: 0, y: -30 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -54,9 +41,8 @@ const Features = () => {
           {featuresData.map((feature) => (
             <motion.div
               key={feature.id}
-              ref={refMapping[feature.id]}
               initial="hidden"
-              animate={inViewStates[feature.id] ? 'visible' : 'hidden'}
+              whileInView="visible" // Animate based on visibility when scrolled into view
               variants={itemVariants}
               className="rounded-lg bg-gray-100 p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
             >

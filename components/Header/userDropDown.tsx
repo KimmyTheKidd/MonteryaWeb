@@ -15,12 +15,25 @@ export default function UserDropDown() {
   const { user, logOut, currentuser, isGameOpen } = UserAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Check if both user and currentuser are defined
     if (user && currentuser) {
       setIsLoading(false);
     }
+
+    // Check screen width to determine if it's a mobile device
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // 640px is the breakpoint for 'sm' in Tailwind
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize); // Listen for resize events
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Cleanup
+    };
   }, [user, currentuser]);
 
   const TriggerLogout = async () => {
@@ -56,17 +69,27 @@ export default function UserDropDown() {
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
         <DropdownTrigger>
-          <User
-            as="button"
-            avatarProps={{
-              isBordered: true,
-              src: user.photoURL ? user.photoURL : null,
-            }}
-            className="transition-transform text-slate-900"
-            name={
-              currentuser.username ? currentuser.username : currentuser.email
-            }
-          />
+          {/* Conditionally render based on screen size */}
+          {isMobile ? (
+            <Avatar
+              isBordered
+              as="button"
+              src={user.photoURL ? user.photoURL : null}
+              className="transition-transform"
+            />
+          ) : (
+            <User
+              as="button"
+              avatarProps={{
+                isBordered: true,
+                src: user.photoURL ? user.photoURL : null,
+              }}
+              className="transition-transform text-slate-900"
+              name={
+                currentuser.username ? currentuser.username : currentuser.email
+              }
+            />
+          )}
         </DropdownTrigger>
         <DropdownMenu
           aria-label="User Actions"

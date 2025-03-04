@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import menuData from './menuData';
 import { UserAuth } from '@/config/AuthContext';
 import BugReportButton from '../BugReport/BugReport';
@@ -10,6 +10,7 @@ import UserDropDown from './userDropDown';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
   const { user, isGameOpen } = UserAuth();
@@ -17,6 +18,7 @@ const Header = () => {
   const [openIndex, setOpenIndex] = useState(-1);
   const usePathName = usePathname();
   const router = useRouter();
+  const navbarRef = useRef<HTMLDivElement>(null);
 
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
@@ -34,69 +36,64 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target as Node)
+      ) {
+        setNavbarOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [navbarRef]);
+
   return (
-    <header
-      className={`header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-white bg-opacity-60 py-4 shadow-sticky backdrop-blur-sm transition rounded-full mt-8`}
-    >
+    <header className="header fixed top-0 left-1/2 transform -translate-x-1/2 z-40 flex items-center justify-center w-full max-w-screen-2xl bg-white bg-opacity-60 py-4 shadow-sticky backdrop-blur-sm transition rounded-full mt-8">
       <div className="container px-6 lg:px-12">
         <div className="relative flex items-center justify-between">
           {/* Logo Section */}
           <div className="w-36 flex-shrink-0">
-  <Image
-    onClick={() => handleNavigation('/')}
-    src="/MonteryaNoicon.png"
-    alt="logo"
-    width={140}
-    height={30}
-    className="w-full cursor-pointer transition-transform active:scale-95"
-  />
-</div>
-
+            <Image
+              onClick={() => handleNavigation('/')}
+              src="/MonteryaNoicon.png"
+              alt="logo"
+              width={140}
+              height={30}
+              className="w-full cursor-pointer transition-transform active:scale-95"
+            />
+          </div>
 
           {/* Add spacing between logo and menu */}
           <div className="flex items-center justify-between w-full ml-8 lg:ml-12">
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={navbarToggleHandler}
-              id="navbarToggler"
-              aria-label="Mobile Menu"
-              className="block rounded-lg px-3 py-2 lg:hidden"
-            >
-              <span
-                className={`block h-0.5 w-[30px] bg-black transition-all duration-300 ${
-                  navbarOpen ? 'rotate-45' : ''
-                }`}
-              ></span>
-              <span
-                className={`block h-0.5 w-[30px] bg-black transition-all duration-300 ${
-                  navbarOpen ? '-rotate-45' : ''
-                }`}
-              />
-            </button>
-
             {/* Navigation Menu */}
             <nav
               id="navbarCollapse"
-              className={`absolute right-0 z-30 w-[250px] rounded-lg bg-white px-6 py-4 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+              ref={navbarRef}
+              className={`lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 absolute right-0 z-30 w-[250px] rounded-lg bg-white px-6 py-4 lg:flex lg:space-x-6 ${
                 navbarOpen
                   ? 'visible top-full opacity-100'
                   : 'invisible top-[120%] opacity-0'
-              }`}
+              } transition-all duration-300`}
             >
               <ul className="block lg:flex lg:space-x-6">
                 {menuData.map((menuItem: any, index: number) => (
                   <li key={index} className="relative group">
                     {menuItem.path ? (
                       <Link
-                      href={menuItem.path}
-                      className={`flex items-center px-4 py-2 text-base lg:inline-flex lg:px-6 cursor-pointer ${
-                        usePathName === menuItem.path
-                          ? 'text-blue-600 font-bold bg-blue-100 rounded-lg shadow-md transition-all'
-                          : 'text-slate-900 hover:text-blue-500 dark:text-white font-bold hover:bg-white/10 rounded-lg transition-all active:scale-95 active:bg-blue-200 active:text-blue-700'
-                      }`}
-                    >
-                      {menuItem.title}
-                    </Link>
+                        href={menuItem.path}
+                        className={`flex items-center px-4 py-2 text-base lg:inline-flex lg:px-6 cursor-pointer ${
+                          usePathName === menuItem.path
+                            ? 'text-blue-600 font-bold bg-blue-100 rounded-lg shadow-md transition-all'
+                            : 'text-slate-900 hover:text-blue-500 dark:text-white font-bold hover:bg-white/10 rounded-lg transition-all active:scale-95 active:bg-blue-200 active:text-blue-700'
+                        }`}
+                      >
+                        {menuItem.title}
+                      </Link>
                     ) : (
                       <>
                         <button
@@ -141,24 +138,39 @@ const Header = () => {
               </ul>
             </nav>
 
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={navbarToggleHandler}
+              id="navbarToggler"
+              aria-label="Mobile Menu"
+              className="lg:hidden block rounded-lg p-3 bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition duration-300 ease-in-out absolute right-4"
+            >
+              {navbarOpen ? (
+                <FaTimes
+                  className="text-white text-sm"
+                />
+              ) : (
+                <FaBars
+                  className="text-white text-sm"
+                />
+              )}
+            </button>
+
             {/* User Actions and Buttons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {user ? (
-                <>
-                  <UserDropDown />
-                  <BugReportButton />
-                </>
+                <UserDropDown />
               ) : (
                 <>
                   <Link
                     href="/signup"
-                    className="px-4 py-2 text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
                   >
                     Sign Up
                   </Link>
                   <Link
                     href="/login"
-                    className="px-4 py-2 text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base font-medium text-slate-900 bg-white border border-gray-300 rounded-full hover:bg-gray-100 hover:text-blue-700 active:scale-95 active:bg-gray-200 active:border-blue-500 transition duration-200 ease-in-out"
                   >
                     Login
                   </Link>
@@ -166,7 +178,7 @@ const Header = () => {
               )}
               <Link
                 href="/gameEngine"
-                className="rounded-full bg-blue-700 hover:bg-blue-600 px-6 py-2 text-base font-medium text-white shadow-lg transition duration-300"
+                className="rounded-full bg-blue-700 hover:bg-blue-600 px-4 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base font-medium text-white shadow-lg transition duration-300 w-[150px] sm:w-[250px] hidden sm:inline-flex items-center justify-center"
               >
                 <span className="mr-2">Start Playing</span>
                 <FontAwesomeIcon icon={faCircleChevronRight} />
