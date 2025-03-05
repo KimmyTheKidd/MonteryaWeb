@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { FaPlay } from 'react-icons/fa';
 
 export default function RoadMapPage() {
+  const handleRedirect = () => {
+    window.location.href = "/gameEngine"; // Replace with the actual URL you want to send the user to
+  };
   return (
     <section
       id="roadmap"
@@ -47,7 +50,9 @@ export default function RoadMapPage() {
           className="mt-10 rounded-full bg-blue-600 px-8 py-4 text-2xl font-semibold text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
           style={{
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+            
           }}
+          onClick={handleRedirect} // Handle the click event
         >
           <FaPlay className="inline-block mr-3" />
           Play Now

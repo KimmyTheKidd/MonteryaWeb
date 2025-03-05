@@ -1,5 +1,6 @@
 // pages/about.js
 'use client';
+import MiniMont from '@/components/MiniMont/MiniMont';
 import { motion } from 'framer-motion';
 
 export default function MiniMonPage() {
@@ -42,7 +43,7 @@ export default function MiniMonPage() {
             }}
             variants={itemVariants}
           >
-            Mini Mon
+            Mini Mont
           </motion.h1>
           <motion.p
             className="mt-6 text-xl text-white md:text-2xl"
@@ -51,10 +52,11 @@ export default function MiniMonPage() {
             }}
             variants={itemVariants}
           >
-            Comming soon..
-          </motion.p>
+    A relaxing game where you can farm and chill, idling at the bottom of the screen.
+    </motion.p>
         </motion.div>
         {/* <Roadmap/> */}
+        <MiniMont/>
 
       </section>
     </>
