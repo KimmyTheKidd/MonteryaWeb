@@ -1,12 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Unity WebGL Player | monterya</title>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width="960" height="600" tabindex="-1" style="width: 1280px; height: 720px; background: #231F20"></canvas>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0">
+    <canvas
+      id="unity-canvas"
+      width="960"
+      height="600"
+      tabindex="-1"
+      style="width: 1280px; height: 720px; background: #231f20"
+    ></canvas>
     <script src="Build/monterya0.4.0.loader.js"></script>
     <script>
       var container = document.querySelector('#unity-container');
@@ -15,13 +21,6 @@
       var progressBarFull = document.querySelector('#unity-progress-bar-full');
       var fullscreenButton = document.querySelector('#unity-fullscreen-button');
       var warningBanner = document.querySelector('#unity-warning');
-
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
 
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
@@ -44,49 +43,37 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = 'Build';
-      var loaderUrl = buildUrl + '/Monterya_WebBuild.loader.js';
-      var config = {
-        dataUrl: buildUrl + '/Monterya_WebBuild.data',
-        frameworkUrl: buildUrl + '/Monterya_WebBuild.framework.js',
-        codeUrl: buildUrl + '/Monterya_WebBuild.wasm',
-        streamingAssetsUrl: 'StreamingAssets',
-        companyName: 'woxacorp',
-        productName: 'monterya',
-        productVersion: '0.2.0',
-        showBanner: unityShowBanner,
-      };
-
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content =
           'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = 'unity-mobile';
-        canvas.className = 'unity-mobile';
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+        var canvas = document.querySelector('#unity-canvas');
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.position = 'fixed';
 
-        unityShowBanner('WebGL builds are not supported on mobile devices.');
+        document.body.style.textAlign = 'left';
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         canvas.style.width = '1280px';
         canvas.style.height = '720px';
       }
-
+      createUnityInstance(document.querySelector('#unity-canvas'), {
+        dataUrl: 'Build/monterya0.4.0.data',
+        frameworkUrl: 'Build/monterya0.4.0.framework.js',
+        codeUrl: 'Build/monterya0.4.0.wasm',
+        streamingAssetsUrl: 'StreamingAssets',
+        companyName: 'woxacorp',
+        productName: 'monterya',
+        productVersion: '0.4.0',
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
       loadingBar.style.display = 'block';
 
       var script = document.createElement('script');
@@ -108,34 +95,37 @@
       };
       document.body.appendChild(script);
     </script>
+    
+  </script>
 
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
 
-    <script type="module">
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
+  <script type="module">
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: 'AIzaSyD5WfR4rEjf0bVypUULQB9umShw-d1pQXk',
-        authDomain: 'monteryaweb.firebaseapp.com',
-        databaseURL:
-          'https://monteryaweb-default-rtdb.asia-southeast1.firebasedatabase.app',
-        projectId: 'monteryaweb',
-        storageBucket: 'monteryaweb.appspot.com',
-        messagingSenderId: '470604153637',
-        appId: '1:470604153637:web:d1faba1fe14e244db550cc',
-        measurementId: 'G-ZZB9HZGGY8',
-      };
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: 'AIzaSyD5WfR4rEjf0bVypUULQB9umShw-d1pQXk',
+      authDomain: 'monteryaweb.firebaseapp.com',
+      databaseURL:
+        'https://monteryaweb-default-rtdb.asia-southeast1.firebasedatabase.app',
+      projectId: 'monteryaweb',
+      storageBucket: 'monteryaweb.appspot.com',
+      messagingSenderId: '470604153637',
+      appId: '1:470604153637:web:d1faba1fe14e244db550cc',
+      measurementId: 'G-ZZB9HZGGY8',
+    };
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-      console.log('Firebase initialized:', firebase); // Check if Firebase is properly initialized
-    </script>
+    console.log('Firebase initialized:', firebase); // Check if Firebase is properly initialized
+  </script>
+
   </body>
 </html>
