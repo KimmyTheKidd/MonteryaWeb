@@ -42,7 +42,7 @@ export default function RoadMapPage() {
         >
           Explore a breathtaking open world, collect rare Veras, and earn
           rewards from our $50M treasure vault. The journey of discovery and
-          fortune awaits—are you ready to take the leap?
+          fortune awaits—are you ready to take the leap? New Patch is comming!
         </p>
         <motion.button
           whileHover={{ scale: 1.1 }}
